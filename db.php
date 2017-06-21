@@ -1,4 +1,6 @@
 <?php
+ 
+
 /* Database connection settings */
 $host = 'localhost';
 $user = 'root';
