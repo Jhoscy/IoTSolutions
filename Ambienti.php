@@ -17,54 +17,22 @@ else {
     $email = $_SESSION['email'];
     $active = $_SESSION['active'];
 }
-$sqlS="SELECT * FROM sensore";
-$resultS=$mysqli->query($sqlS);
 
-if($resultS->num_rows>0){
-    while($row=$resultS->fetch_assoc()){
-        echo "<br> id: ".$row["ID"]. " - MARCA: ".$row["MARCA"]. " - TIPO ".$row["TIPO"]. " UNITA'  ".$row["UNITAMISURA"];
-        $ID=$row["ID"];
-        $marca=$row["MARCA"];
-        $tipo=$row["TIPO"];
-        $misura=$row["UNITAMISURA"];
-}
-    }else {
-        echo "0 results";
-    }
-    function get_options(){
-        require 'db.php';
-          
-             $sqlA="SELECT * FROM ambiente";
-             $resultA=$mysqli->query($sqlA);
-    
-             if($resultA->num_rows>0){
-               while($row=$resultA->fetch_assoc()){
-               echo '<option value="'.$row['NOME'].'">'.$row['NOME'].'</option>';
-                      }
-               }else {
-                  echo "0 results";
-                   }
-                   
-    }
-    
-    function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
-        require 'db.php';
-        
-        $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                echo " ID: ".$row["ID"];
-                $IDambiente=$row["ID"];
-                
-            }
-             $sql1="INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)";
-             $result1=$mysqli->query($sql1);
-             
-              
+
+function getIDambiente($nomeAmbiente){
+    require 'db.php';
+    $sql="SELECT ID FROM ambiente WHERE nome='$nomeAmbiente'";
+    $result=$mysqli->query($sql);
+    if($result->num_rows>0){
+        while($row=$result->fetch_assoc()){
+            $IDambiente=$row["ID"];
         }
     }
+    $mysqli->close();
+    return $IDambiente;
     
+}
+
     function getLastID(){
         require 'db.php';
         
@@ -83,25 +51,7 @@ if($resultS->num_rows>0){
         }
         
     }
-    function getPOSTambienti (){
-       $ambiente= filter_input(INPUT_POST, 'ambienti');
-       return $ambiente;
-}
-    /*
-    
-          $sqlA="SELECT * FROM ambienti";
-           $resultA=$mysqli->query($sqlA);
-    
-            if($resultA->num_rows>0){
-              while($row=$resultA->fetch_assoc()){
-                echo "<br> id: ".$row["ID"]. " - NomeAmbiente: ".$row["nome"];
-                   $IDAmbiente=$row["ID"];
-                   $nomeAmbiente=$row["nome"];
-                     }
-                  }else {
-                     echo "0 results";
-                        } */
-             $mysqli->close();
+       $mysqli->close();
     
 ?>
 <!doctype html>
@@ -275,48 +225,79 @@ if($resultS->num_rows>0){
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Sintesi Dati Raccolti</h4>
+                                <h4 class="title">Casa</h4>
+                                <?php 
+                                require 'db.php';
+                                $nomeAmbiente='casa';
+                                $IDambiente= getIDambiente($nomeAmbiente);
+                                       $sqlA="SELECT s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA"
+                                            . " FROM monitora JOIN sensore s on s.ID=IDsensore JOIN"
+                                             . " monitoraggio mo ON mo.ID=IDmonitoraggio"
+                                                . " WHERE IDambiente=$IDambiente";
+                                       $result=$mysqli->query($sqlA);
+                                       if(!$result){
+                                           trigger_error("invalid query");
+                                           
+                                       }
+                                        if($result->num_rows>0){
+                                         while($row=$result->fetch_assoc()){
+                                                 $marca=$row["MARCA"];
+                                                 $tipo=$row["TIPO"];
+                                                 $unitaMisura=$row["UNITAMISURA"];
+                                                 $valore=$row["VALORE"];
+                                                 $data=$row["DATA"];
+                                                $ora=$row["ORA"];
+                                                }
+                                        }
+                                        $mysqli->close();
+                                                                        ?>
                                 <p class="category">Here is a subtitle for this table</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>ID</th>
-                                    	<th>Nome</th>
-                                    	<th>Valore</th>
+                                        <th>Marca</th>
+                                    	<th>Tipo</th>
                                     	<th>Misura</th>
-                                    	<th>Add Sensore</th>
+                                    	<th>valore</th>
+                                    	<th>Data</th>
+                                        <th>Ora</th>
+                                        <th>Remove Sensore</th>
                                         
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><?= $ID ?></td>
-                                        	<td><?= $marca ?></td>
-                                        	<td><?= $tipo ?></td>
-                                        	<td><?= $misura ?></td>
-                                                <td>
-                                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
-                                                    <?php echo get_options();?>
-                                                    </select>
-                                                    <?php $nomeAmbiente= getPOSTambienti();
-                                                    echo $nomeAmbiente;
-                                                    
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    }
-                                                    echo insert_into_monitora($ID, $nomeAmbiente, $_SESSION['count']);?>
+                                        	<td><?=
+                                                        $marca ?></td>
+                                        	<td><?=
+                                                        $tipo ?></td>
+                                        	<td><?=
+                                                        $unitaMisura ?></td>
+                                        	<td><?=
+                                                        $valore ?></td>
+                                                <td><?=$data ?></td>
+                                                <td><?= $ora ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit" value="Remove"/>
+                                                     <?php
+                                                     require 'db.php';
+                                                        if(isset($_POST['submit'])){
+                                                             $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
+                                                             $result = $mysqli->query($SQL);
+                                                             var_dump($result);
+                                                            /* if($marca==null && $tipo==null && $unitaMisura==null && $valore==null && $data==null && $ora==null){
+                                                                 $marca=0;
+                                                                  $tipo=0;
+                                                                  $unitaMisura=0;
+                                                                  $valore=0;
+                                                                  $data=0;
+                                                                  $ora=0;
+                                                             } */
+                                                             }
+                                                                ?>
                                                     </form>
-                                                <!-- <button class="button button-block" name="Sensore" />Add Sensore</button></td> -->
+                                                </td>
+                                                 <!--<button class="button button-block" name="Sensore" />Remove</button></td> -->
                                                 </tr>
                                         <tr>
                                         	<td>2</td>
@@ -505,3 +486,4 @@ if($resultS->num_rows>0){
 	</script>
 
 </html>
+

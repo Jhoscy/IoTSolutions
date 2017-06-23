@@ -285,7 +285,7 @@ if($resultS->num_rows>0){
                                     	<th>Nome</th>
                                     	<th>Valore</th>
                                     	<th>Misura</th>
-                                    	<th>Add Sensore</th>
+                                    	<th>Add To Ambiente</th>
                                         
                                     </thead>
                                     <tbody>
@@ -505,3 +505,4 @@ if($resultS->num_rows>0){
 	</script>
 
 </html>
+
