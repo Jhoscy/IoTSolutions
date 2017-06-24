@@ -248,6 +248,13 @@ function getIDambiente($nomeAmbiente){
                                                  $data=$row["DATA"];
                                                 $ora=$row["ORA"];
                                                 }
+                                        }else{
+                                            $marca=0;
+                                            $tipo=0;
+                                            $unitaMisura=0;
+                                            $valore=0;
+                                            $data=0;
+                                            $ora=0;
                                         }
                                         $mysqli->close();
                                                                         ?>
@@ -284,15 +291,7 @@ function getIDambiente($nomeAmbiente){
                                                         if(isset($_POST['submit'])){
                                                              $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
                                                              $result = $mysqli->query($SQL);
-                                                             var_dump($result);
-                                                            /* if($marca==null && $tipo==null && $unitaMisura==null && $valore==null && $data==null && $ora==null){
-                                                                 $marca=0;
-                                                                  $tipo=0;
-                                                                  $unitaMisura=0;
-                                                                  $valore=0;
-                                                                  $data=0;
-                                                                  $ora=0;
-                                                             } */
+                                                             //var_dump($result);
                                                              }
                                                                 ?>
                                                     </form>

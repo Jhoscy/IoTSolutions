@@ -87,20 +87,6 @@ if($resultS->num_rows>0){
        $ambiente= filter_input(INPUT_POST, 'ambienti');
        return $ambiente;
 }
-    /*
-    
-          $sqlA="SELECT * FROM ambienti";
-           $resultA=$mysqli->query($sqlA);
-    
-            if($resultA->num_rows>0){
-              while($row=$resultA->fetch_assoc()){
-                echo "<br> id: ".$row["ID"]. " - NomeAmbiente: ".$row["nome"];
-                   $IDAmbiente=$row["ID"];
-                   $nomeAmbiente=$row["nome"];
-                     }
-                  }else {
-                     echo "0 results";
-                        } */
              $mysqli->close();
     
 ?>
@@ -275,8 +261,8 @@ if($resultS->num_rows>0){
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Sintesi Dati Raccolti</h4>
-                                <p class="category">Here is a subtitle for this table</p>
+                                <h4 class="title">Sensori</h4>
+                                <p class="category">Lista dei sensori disponibili</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -285,7 +271,7 @@ if($resultS->num_rows>0){
                                     	<th>Nome</th>
                                     	<th>Valore</th>
                                     	<th>Misura</th>
-                                    	<th>Add To Ambiente</th>
+                                    	<th>Add Sensore</th>
                                         
                                     </thead>
                                     <tbody>
@@ -359,73 +345,6 @@ if($resultS->num_rows>0){
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="header">
-                                <h4 class="title">Table on Plain Background</h4>
-                                <p class="category">Here is a subtitle for this table</p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th>Salary</th>
-                                    	<th>Country</th>
-                                    	<th>City</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>1</td>
-                                        	<td>Dakota Rice</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-
 
         <footer class="footer">
             <div class="container-fluid">
@@ -505,4 +424,3 @@ if($resultS->num_rows>0){
 	</script>
 
 </html>
-

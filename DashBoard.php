@@ -5,7 +5,7 @@ session_start();
 
 
 // Check if user is logged in using the session variable
-if ( $_SESSION['logged_in'] !== 1 ) {
+if ( $_SESSION['logged_in'] != 1 ) {
   $_SESSION['message'] = 'You must log in before viewing your profile page!';
   header('location: error.php');    
 }
@@ -88,20 +88,6 @@ if($resultS->num_rows>0){
        $ambiente= filter_input(INPUT_POST, 'ambienti');
        return $ambiente;
 }
-    /*
-    
-          $sqlA="SELECT * FROM ambienti";
-           $resultA=$mysqli->query($sqlA);
-    
-            if($resultA->num_rows>0){
-              while($row=$resultA->fetch_assoc()){
-                echo "<br> id: ".$row["ID"]. " - NomeAmbiente: ".$row["nome"];
-                   $IDAmbiente=$row["ID"];
-                   $nomeAmbiente=$row["nome"];
-                     }
-                  }else {
-                     echo "0 results";
-                        } */
              $mysqli->close();
     
 ?>
