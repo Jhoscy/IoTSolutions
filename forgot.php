@@ -8,15 +8,15 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {   
     //$email = $mysqli->escape_string($_POST['email']);
 	$email = $mysqli->escape_string(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
-	if($email===FALSE){
-		trigger_error("Invalid email", E_USER_WARNING);
+	if($email===false){
+		trigger_error('Invalid email', E_USER_WARNING);
 	}
     $result = $mysqli->query("SELECT * FROM users WHERE email='$email'");
 
     if ( $result->num_rows == 0 ) // User doesn't exist
     { 
         $_SESSION['message'] = "User with that email doesn't exist!";
-        header("location: error.php");
+        header('location: error.php');
     }
     else { // User exists (num_rows != 0)
 
@@ -27,7 +27,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
         $first_name = $user['first_name'];
 
         // Session message to display on success.php
-        $_SESSION['message'] = "<p>Please check your email <span> $email </span>"
+        $_SESSION['message'] = '<p>Please check your email <span> $email </span>'
         . 'for a confirmation link to complete your password reset!</p>';
 
         // Send registration confirmation link (reset.php)
@@ -41,7 +41,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
         mail($to, $subject, $message_body);
 
-        header("location: success.php");
+        header('location: success.php');
   }
 }
 ?>

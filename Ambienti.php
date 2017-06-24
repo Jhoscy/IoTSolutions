@@ -25,7 +25,7 @@ function getIDambiente($nomeAmbiente){
     $result=$mysqli->query($sql);
     if($result->num_rows>0){
         while($row=$result->fetch_assoc()){
-            $IDambiente=$row["ID"];
+            $IDambiente=$row['ID'];
         }
     }
     $mysqli->close();
@@ -36,12 +36,12 @@ function getIDambiente($nomeAmbiente){
     function getLastID(){
         require 'db.php';
         
-        $sql="SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)";
+        $sql='SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)';
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
-                $lastID=$row["ID"];
-                echo" IDLAST:" .$lastID;
+                $lastID=$row['ID'];
+                echo' IDLAST:' ,$lastID;
                 
             }
             return $lastID;
@@ -51,7 +51,10 @@ function getIDambiente($nomeAmbiente){
         }
         
     }
-       $mysqli->close();
+    if(isset($mysqli)){
+         $mysqli->close();
+    }
+      
     
 ?>
 <!doctype html>
@@ -230,23 +233,26 @@ function getIDambiente($nomeAmbiente){
                                 require 'db.php';
                                 $nomeAmbiente='casa';
                                 $IDambiente= getIDambiente($nomeAmbiente);
-                                       $sqlA="SELECT s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA"
-                                            . " FROM monitora JOIN sensore s on s.ID=IDsensore JOIN"
-                                             . " monitoraggio mo ON mo.ID=IDmonitoraggio"
-                                                . " WHERE IDambiente=$IDambiente";
-                                       $result=$mysqli->query($sqlA);
-                                       if(!$result){
-                                           trigger_error("invalid query");
+                                       $sqlA='SELECT s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA'
+                                            . ' FROM monitora JOIN sensore s on s.ID=IDsensore JOIN'
+                                             . ' monitoraggio mo ON mo.ID=IDmonitoraggio'
+                                                . ' WHERE IDambiente=$IDambiente';
+                                       if(isset($mysqli)){
+                                            $result=$mysqli->query($sqlA);
+                                       }
+                                
+                                       if(!isset($result)){
+                                           trigger_error('invalid query');
                                            
                                        }
                                         if($result->num_rows>0){
                                          while($row=$result->fetch_assoc()){
-                                                 $marca=$row["MARCA"];
-                                                 $tipo=$row["TIPO"];
-                                                 $unitaMisura=$row["UNITAMISURA"];
-                                                 $valore=$row["VALORE"];
-                                                 $data=$row["DATA"];
-                                                $ora=$row["ORA"];
+                                                 $marca=$row['MARCA'];
+                                                 $tipo=$row['TIPO'];
+                                                 $unitaMisura=$row['UNITAMISURA'];
+                                                 $valore=$row['VALORE'];
+                                                 $data=$row['DATA'];
+                                                $ora=$row['ORA'];
                                                 }
                                         }else{
                                             $marca=0;
