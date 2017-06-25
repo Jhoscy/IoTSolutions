@@ -26,24 +26,28 @@ function selectSensore(){
     }
     if($resultS->num_rows>0){
          while($row=$resultS->fetch_assoc()){
+             $ID=$row['ID'];
+             $marca=$row['MARCA'];
+             $tipo=$row['TIPO'];
+             $misura=$row['UNITAMISURA'];
              switch($row['ID']){
                  case 1:
-                     $Sensore[1]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     $Sensore[1]=array($ID, $marca, $tipo, $misura);
                      break;
                  case 2:
-                      $Sensore[2]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                      $Sensore[2]=array($ID, $marca, $tipo, $misura);
                      break;
                  case 3:
-                      $Sensore[3]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                      $Sensore[3]=array($ID, $marca, $tipo, $misura);
                      break;
                  case 4:
-                      $Sensore[4]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                      $Sensore[4]=array($ID, $marca, $tipo, $misura);
                      break;
                  case 5:
-                      $Sensore[5]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                      $Sensore[5]=array($ID, $marca, $tipo, $misura);
                      break;
                  case 6:
-                      $Sensore[6]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                      $Sensore[6]=array($ID, $marca, $tipo, $misura);
                      break;
              }
          //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
@@ -53,10 +57,10 @@ function selectSensore(){
   
 }
 $Sensori= selectSensore();
-array_slice($Sensori,0,0);
 
-
-
+function getSelect(){
+    
+}
 
     function get_options(){
         require 'db.php';
@@ -81,7 +85,7 @@ array_slice($Sensori,0,0);
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
-                echo ' ID: ',$row['ID'];
+               // echo ' ID: ',$row['ID'];
                 $IDambiente=$row['ID'];
                 
             }
@@ -304,17 +308,17 @@ array_slice($Sensori,0,0);
                                     <tbody>
                                         <tr> 
                                             
-                                            <td><?= print_r(array_slice($Sensori,0,1));?></td>
-                                        	<td><?= $marca ?></td>
-                                        	<td><?= $tipo ?></td>
-                                        	<td><?= $misura ?></td>
+                                                <td><?= $Sensori[1][0] ?></td>
+                                        	<td><?= $Sensori[1][1] ?></td>
+                                        	<td><?= $Sensori[1][2] ?></td>
+                                        	<td><?= $Sensori[1][3]?></td>
                                                 <td>
                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                     </select>
-                                                    <?php $nomeAmbiente= getPOSTambienti();
-                                                    echo $nomeAmbiente;
+                                                    <?php $nomeAmbiente1= getPOSTambienti();
+                                                            echo $nomeAmbiente1;
                                                     
                                                      //reset to 1
                                                     if(isset($_POST['reset'])){
@@ -327,45 +331,158 @@ array_slice($Sensori,0,0);
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
-                                                    }else{}
-                                                    echo insert_into_monitora($ID, $nomeAmbiente, $_SESSION['count']);?>
+                                                    } 
+                                                    echo insert_into_monitora( $Sensori[1][0] , $nomeAmbiente1, $_SESSION['count']);
+                                                     ?>
+                                                        
                                                     </form>
-                                                <!-- <button class="button button-block" name="Sensore" />Add Sensore</button></td> -->
                                                 </tr>
                                         <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
+                                        	<td><?= $Sensori[2][0] ?></td>
+                                        	<td><?= $Sensori[2][1] ?></td>
+                                        	<td><?= $Sensori[2][2] ?></td>
+                                        	<td><?= $Sensori[2][3] ?></td>
+                                                <td>
+                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <?php echo get_options();?>
+                                                   </select>
+                                                    <?php $nomeAmbiente2= getPOSTambienti();
+                                                        echo $nomeAmbiente2;
+                                                    
+                                                     //reset to 1
+                                                    if(isset($_POST['reset'])){
+                                                        unset($_SESSION['count']);
+                                                    }
+                                                    //Set or increment session number only if dropdown list is clicked
+                                                    if(empty($_SESSION['count'])){
+                                                        $_SESSION['count']=1;
+                                                    }elseif(isset($_POST['ambienti'])){
+                                                        $_SESSION['count']++;
+                                                        
+                                                        //echo $_SESSION['count'];
+                                                    }
+                                                    echo insert_into_monitora( $Sensori[2][0] , $nomeAmbiente2, $_SESSION['count']);?>
+                                                         
+                                                    </form>
+                                                </td>
                                         </tr>
                                         <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
+                                        	<td><?= $Sensori[3][0] ?></td>
+                                        	<td><?= $Sensori[3][1] ?></td>
+                                        	<td><?= $Sensori[3][2] ?></td>
+                                        	<td><?= $Sensori[3][3] ?></td>
+                                                <td>
+                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <?php echo get_options();?>
+                                                   </select>
+                                                    <?php $nomeAmbiente3= getPOSTambienti();
+                                                            echo $nomeAmbiente3;
+                                                    
+                                                     //reset to 1
+                                                    if(isset($_POST['reset'])){
+                                                        unset($_SESSION['count']);
+                                                    }
+                                                    //Set or increment session number only if dropdown list is clicked
+                                                    if(empty($_SESSION['count'])){
+                                                        $_SESSION['count']=1;
+                                                    }elseif(isset($_POST['ambienti'])){
+                                                        $_SESSION['count']++;
+                                                        
+                                                        //echo $_SESSION['count'];
+                                                    }
+                                                    echo insert_into_monitora( $Sensori[3][0] , $nomeAmbiente3, $_SESSION['count']);?>
+                                                         
+                                                    </form>
+                                                </td>
                                         </tr>
                                         <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
+                                        	<td><?= $Sensori[4][0] ?></td>
+                                        	<td><?= $Sensori[4][1] ?></td>
+                                        	<td><?= $Sensori[4][2] ?></td>
+                                        	<td><?= $Sensori[4][3] ?></td>
+                                                <td>
+                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <?php echo get_options();?>
+                                                    </select>
+                                                    <?php $nomeAmbiente4= getPOSTambienti();
+                                                            echo $nomeAmbiente4;
+                                                     //reset to 1
+                                                    if(isset($_POST['reset'])){
+                                                        unset($_SESSION['count']);
+                                                    }
+                                                    //Set or increment session number only if dropdown list is clicked
+                                                    if(empty($_SESSION['count'])){
+                                                        $_SESSION['count']=1;
+                                                    }elseif(isset($_POST['ambienti'])){
+                                                        $_SESSION['count']++;
+                                                        
+                                                        //echo $_SESSION['count'];
+                                                    }
+                                                    echo insert_into_monitora( $Sensori[4][0] , $nomeAmbiente4, $_SESSION['count']);?>
+                                                        
+                                                    </form>
+                                                </td>
                                         </tr>
                                         <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
+                                        	<td><?= $Sensori[5][0] ?></td>
+                                        	<td><?= $Sensori[5][1] ?></td>
+                                        	<td><?= $Sensori[5][2] ?></td>
+                                        	<td><?= $Sensori[5][3] ?></td>
+                                                <td>
+                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <?php echo get_options();?>
+                                                   </select>
+                                                    <?php $nomeAmbiente5= getPOSTambienti();
+                                                            echo $nomeAmbiente5;
+                                                     //reset to 1
+                                                    if(isset($_POST['reset'])){
+                                                        unset($_SESSION['count']);
+                                                    }
+                                                    //Set or increment session number only if dropdown list is clicked
+                                                    if(empty($_SESSION['count'])){
+                                                        $_SESSION['count']=1;
+                                                    }elseif(isset($_POST['ambienti'])){
+                                                        $_SESSION['count']++;
+                                                        
+                                                        //echo $_SESSION['count'];
+                                                    }
+                                                    echo insert_into_monitora( $Sensori[5][0] , $nomeAmbiente5, $_SESSION['count']);?>
+                                                         
+                                                    </form>
+                                                </td>
                                         </tr>
                                         <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
+                                        	<td><?= $Sensori[6][0] ?></td>
+                                        	<td><?= $Sensori[6][1] ?></td>
+                                        	<td><?= $Sensori[6][2] ?></td>
+                                        	<td><?= $Sensori[6][3] ?></td>
+                                                <td>
+                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <?php echo get_options();?>
+                                                   </select>
+                                                    <?php $nomeAmbiente6= getPOSTambienti();
+                                                            echo $nomeAmbiente6;
+                                                     //reset to 1
+                                                    if(isset($_POST['reset'])){
+                                                        unset($_SESSION['count']);
+                                                    }
+                                                    //Set or increment session number only if dropdown list is clicked
+                                                    if(empty($_SESSION['count'])){
+                                                        $_SESSION['count']=1;
+                                                    }elseif(isset($_POST['ambienti'])){
+                                                        $_SESSION['count']++;
+                                                        
+                                                        //echo $_SESSION['count'];
+                                                    }
+                                                    echo insert_into_monitora( $Sensori[6][0] , $nomeAmbiente6, $_SESSION['count']);?>
+                                                         
+                                                    </form>
+                                                </td>
                                         </tr>
                                     </tbody>
                                 </table>

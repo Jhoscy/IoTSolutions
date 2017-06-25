@@ -52,6 +52,7 @@ if($resultS->num_rows>0){
     
     function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
         require 'db.php';
+        $IDambiente=-1;
         $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
