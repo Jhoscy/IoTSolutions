@@ -30,26 +30,10 @@ function selectSensore(){
              $marca=$row['MARCA'];
              $tipo=$row['TIPO'];
              $misura=$row['UNITAMISURA'];
-             switch($row['ID']){
-                 case 1:
-                     $Sensore[1]=array($ID, $marca, $tipo, $misura);
-                     break;
-                 case 2:
-                      $Sensore[2]=array($ID, $marca, $tipo, $misura);
-                     break;
-                 case 3:
-                      $Sensore[3]=array($ID, $marca, $tipo, $misura);
-                     break;
-                 case 4:
-                      $Sensore[4]=array($ID, $marca, $tipo, $misura);
-                     break;
-                 case 5:
-                      $Sensore[5]=array($ID, $marca, $tipo, $misura);
-                     break;
-                 case 6:
-                      $Sensore[6]=array($ID, $marca, $tipo, $misura);
-                     break;
-             }
+        
+             $Sensore[$row['ID']]=array($ID, $marca, $tipo, $misura);
+               
+          
          //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
          }
       }
@@ -331,7 +315,9 @@ function getSelect(){
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
-                                                    } 
+                                                    } else{
+                                                        
+                                                    }
                                                     echo insert_into_monitora( $Sensori[1][0] , $nomeAmbiente1, $_SESSION['count']);
                                                      ?>
                                                         
@@ -361,6 +347,8 @@ function getSelect(){
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
+                                                    }else{
+                                                        
                                                     }
                                                     echo insert_into_monitora( $Sensori[2][0] , $nomeAmbiente2, $_SESSION['count']);?>
                                                          
@@ -391,6 +379,8 @@ function getSelect(){
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
+                                                    }else{
+                                                        
                                                     }
                                                     echo insert_into_monitora( $Sensori[3][0] , $nomeAmbiente3, $_SESSION['count']);?>
                                                          
@@ -420,6 +410,8 @@ function getSelect(){
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
+                                                    }else{
+                                                        
                                                     }
                                                     echo insert_into_monitora( $Sensori[4][0] , $nomeAmbiente4, $_SESSION['count']);?>
                                                         
@@ -449,6 +441,8 @@ function getSelect(){
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
+                                                    }else{
+                                                        
                                                     }
                                                     echo insert_into_monitora( $Sensori[5][0] , $nomeAmbiente5, $_SESSION['count']);?>
                                                          
@@ -478,6 +472,8 @@ function getSelect(){
                                                         $_SESSION['count']++;
                                                         
                                                         //echo $_SESSION['count'];
+                                                    }else{
+                                                        
                                                     }
                                                     echo insert_into_monitora( $Sensori[6][0] , $nomeAmbiente6, $_SESSION['count']);?>
                                                          

@@ -291,6 +291,7 @@ function getIDambiente($nomeAmbiente){
                                                      <?php
                                                      require 'db.php';
                                                         if(isset($_POST['submit'])){
+                                                            csrfProtector::init();;
                                                              $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
                                                              $result = $mysqli->query($SQL);
                                                              //var_dump($result);
