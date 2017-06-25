@@ -64,7 +64,11 @@ else {
           
           ?>
           
-          <h2><?php echo $first_name.' ,'.$last_name; ?></h2>
+          <h2><?php /*echo $first_name,' ,',$last_name;*/
+          if(isset($first_name) && isset($last_name)){
+               echo $first_name,' ,',$last_name;
+          }
+                  ?></h2>
           <p><?= $email ?></p>
           
           <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</button></a>

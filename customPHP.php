@@ -193,10 +193,11 @@ function getPOSTcap(){
         require 'db.php';
         $SQL = "UPDATE users SET NAZIENDA='$nomeAzienda', Sede='$sede', Indirizzo='$indirizzo', PIVA='$PIVA', CODFIS='$codiceFiscale', CAP='$cap', telefono='$telefono', "
                 . " id=$ID, first_name='$nome', last_name='$cognome' WHERE email='$email'";
-        $result=$mysqli->query($SQL);
+        $mysqli->query($SQL);
         $mysqli->close();
        
     }
-                                                                
+                                       
+    
     $mysqli->close();
 

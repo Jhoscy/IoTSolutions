@@ -52,7 +52,6 @@ if($resultS->num_rows>0){
     
     function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
         require 'db.php';
-        $IDambiente=-1;
         $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
@@ -61,7 +60,7 @@ if($resultS->num_rows>0){
                 $IDambiente=$row['ID'];
                 
             }
-             $sql1='INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)';
+             $sql1="INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)";
              $mysqli->query($sql1);  
         }
     }
