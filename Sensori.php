@@ -17,23 +17,47 @@ else {
     $email = $_SESSION['email'];
     $active = $_SESSION['active'];
 }
-$sqlS='SELECT * FROM sensore';
-if(isset($mysqli)){
-    $resultS=$mysqli->query($sqlS);
-}
 
-
-if($resultS->num_rows>0){
-    while($row=$resultS->fetch_assoc()){
-        echo '<br> id: ',$row['ID'], ' - MARCA: ',$row['MARCA'], ' - TIPO ',$row['TIPO'], " UNITA'  ",$row['UNITAMISURA'];
-        $ID=$row['ID'];
-        $marca=$row['MARCA'];
-        $tipo=$row['TIPO'];
-        $misura=$row['UNITAMISURA'];
-}
-    }else {
-        echo '0 results';
+function selectSensore(){
+  require 'db.php';
+    $sqlS='SELECT * FROM sensore';
+    if(isset($mysqli)){
+         $resultS=$mysqli->query($sqlS);
     }
+    if($resultS->num_rows>0){
+         while($row=$resultS->fetch_assoc()){
+             switch($row['ID']){
+                 case 1:
+                     $Sensore[1]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     break;
+                 case 2:
+                      $Sensore[2]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     break;
+                 case 3:
+                      $Sensore[3]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     break;
+                 case 4:
+                      $Sensore[4]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     break;
+                 case 5:
+                      $Sensore[5]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     break;
+                 case 6:
+                      $Sensore[6]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+                     break;
+             }
+         //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
+         }
+      }
+      return $Sensore;
+  
+}
+$Sensori= selectSensore();
+array_slice($Sensori,0,0);
+
+
+
+
     function get_options(){
         require 'db.php';
           
@@ -61,7 +85,7 @@ if($resultS->num_rows>0){
                 $IDambiente=$row['ID'];
                 
             }
-             $sql1='INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)';
+             $sql1="INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)";
              $mysqli->query($sql1);
              
               
@@ -278,8 +302,9 @@ if($resultS->num_rows>0){
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        	<td><?= $ID ?></td>
+                                        <tr> 
+                                            
+                                            <td><?= print_r(array_slice($Sensori,0,1));?></td>
                                         	<td><?= $marca ?></td>
                                         	<td><?= $tipo ?></td>
                                         	<td><?= $misura ?></td>
