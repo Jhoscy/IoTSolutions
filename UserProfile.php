@@ -2,6 +2,7 @@
 <?php
 /* Displays user information and some useful messages */
 require 'db.php';
+require 'customPHP.php';
 session_start();
 
 
@@ -18,198 +19,7 @@ else {
     $email = $_SESSION['email'];
     $active = $_SESSION['active'];
 } 
- function getPOSTazienda (){
-       $nazienda= filter_input(INPUT_POST, 'nazienda');
-       return $nazienda;
-}
 
-function getPOSTtelefono(){
-    $telefono=filter_input(INPUT_POST, 'telefono');
-    return $telefono;
-}
-
-function getPOSTemail(){
-    $email=filter_input(INPUT_POST, 'email');
-    return $email;
-}
-
-function getPOSTnome(){
-    $nome=filter_input(INPUT_POST, 'nome');
-    return $nome;
-}
-
-function getPOSTcognome(){
-    $cognome=filter_input(INPUT_POST, 'cognome');
-    return $cognome;
-}
-
-function getPOSTindirizzo(){
-     $indirizzo=filter_input(INPUT_POST, 'indirizzo');
-    return $indirizzo;
-}
-
-function getPOSTsede(){
-     $sede=filter_input(INPUT_POST, 'sede');
-    return $sede;
-}
-
-function getPOSTcodFisc(){
-     $codiceFiscale=filter_input(INPUT_POST, 'codFiscale');
-    return $codiceFiscale;
-}
-
-function getPOSTpIVA(){
-     $PIVA=filter_input(INPUT_POST, 'PIVA');
-    return $PIVA;
-}
-
-function getPOSTcap(){
-     $cap=filter_input(INPUT_POST, 'cap');
-    return $cap;
-}
- 
-    function getNomeAzienda($email){
-        require 'db.php';
-        $SQL = "SELECT NAZIENDA FROM users WHERE email='$email'";
-        $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $nomeAzienda=$row['NAZIENDA'];
-                    }
-        }
-        $mysqli->close();
-        return $nomeAzienda;
-        
-    } 
-    
-    function getID($email){
-        require 'db.php';
-        $SQL="SELECTT id FROM users WHERE email='$email'";
-        $result=$mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                $ID=$row['id'];
-            }
-        }
-        return $ID;
-    }
-    
-    function getTelefono($email){
-        require 'db.php';
-        $SQL="SELECT TELEFONO FROM users WHERE email='$email'";
-         $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $telefono=$row['TELEFONO'];
-                    }
-        }
-        $mysqli->close();
-        return $telefono;
-        
-    }
-    
-    function getNome($email){
-        require 'db.php';
-        $SQL="SELECT first_name FROM users WHERE email='$email'";
-         $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $nome=$row['first_name'];
-                    }
-        }
-        $mysqli->close();
-        return $nome;
-        
-    }
-    function getCognome($email){
-        require 'db.php';
-        $SQL="SELECT last_name FROM users WHERE email='$email'";
-         $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $cognome=$row['last_name'];
-                    }
-        }
-        $mysqli->close();
-        return $cognome;
-        
-    }
-    
-    function getIndirizzzo($email){
-        require 'db.php';
-        $SQL="SELECT Indirizzo FROM users WHERE email='$email'";
-        $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $Indirizzo=$row['Indirizzo'];
-                    }
-        }
-        $mysqli->close();
-        return $Indirizzo;
-        
-    }
-    
-    function getSede($email){
-        require 'db.php';
-        $SQL="SELECT Sede FROM users WHERE email='$email'";
-        $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $Sede=$row['Sede'];
-                    }
-        }
-        $mysqli->close();
-        return $Sede;
-        
-    }
-    
-    function getCodFisc($email){
-        require 'db.php';
-        $SQL="SELECT CODFIS FROM users WHERE email='$email'";
-        $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $CodFis=$row['CODFIS'];
-                    }
-        }
-        $mysqli->close();
-        return $CodFis;
-        
-    }
-    
-    function getPIVA($email){
-        require 'db.php';
-        $SQL="SELECT PIVA FROM users WHERE email='$email'";
-        $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $PIVA=$row['PIVA'];
-                    }
-        }
-        $mysqli->close();
-        return $PIVA;
-    }
-    
-    function getCAP($email){
-        require 'db.php';
-        $SQL="SELECT CAP FROM users WHERE email='$email'";
-        $result = $mysqli->query($SQL);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                    $CAP=$row['CAP'];
-                    }
-        }
-        $mysqli->close();
-        return $CAP;
-    }
-    
-    function modificaDati($nome, $cognome, $indirizzo, $sede, $cap, $PIVA, $telefono, $codiceFiscale, $nomeAzienda, $ID, $email){
-         require 'db.php';
-        $SQL = "INSERT INTO users (NAZIENDA) VALUES('$nomeAzienda', '$sede','$indirizzo','$PIVA','$codiceFiscale','$cap','$telefono','$ID','$nome','$cognome') WHERE email='$email'";
-        $mysqli->query($SQL);     
-    }
-                                                                
-    $mysqli->close();
     
 ?>
 <html lang="en">
@@ -397,7 +207,7 @@ function getPOSTcap(){
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="text" name="email"class="form-control" placeholder="Email" value="<?php echo $email?>">
+                                                <input type="text" name="email"class="form-control" disabled placeholder="Email" value="<?php echo $email?>">
                                                 <?php $nEmail= getPOSTemail();?>
                                             </div>
                                         </div>
@@ -408,14 +218,14 @@ function getPOSTcap(){
                                             <div class="form-group">
                                                 <label>Nome</label>
                                                 <input type="text" name="nome" class="form-control" placeholder="Nome" value="<?php echo getNome($email)?>">
-                                                <?php $nome= getPOSTnome()?>
+                                                <?php $nome= getPOSTnome();?>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Cognome</label>
                                                 <input type="text" name="cognome" class="form-control" placeholder="Cognome" value="<?php echo getCognome($email)?>">
-                                                <?php $cognome= getPOSTcognome()?>
+                                                <?php $cognome= getPOSTcognome();?>
                                             </div>
                                         </div>
                                     </div>
@@ -425,7 +235,7 @@ function getPOSTcap(){
                                             <div class="form-group">
                                                 <label>Indirizzo</label>
                                                 <input type="text" name="indirizzo" class="form-control" placeholder="Home Address" value="<?php echo getIndirizzzo($email)?>">
-                                                <?php $indirizzo= getPOSTindirizzo() ?>
+                                                <?php $indirizzo= getPOSTindirizzo(); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -435,36 +245,39 @@ function getPOSTcap(){
                                             <div class="form-group">
                                                 <label>Sede</label>
                                                 <input type="text" name="sede" class="form-control" placeholder="City" value="<?php echo getSede($email) ?>">
-                                                <?php $sede= getPOSTsede() ?>
+                                                <?php $sede= getPOSTsede(); ?>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Codice Fiscale</label>
                                                 <input type="text" name="codiceFiscale" class="form-control" placeholder="CodFisc" value="<?php echo getCodFisc($email) ?>">
-                                                <?php $codFisc= getPOSTcodFisc() ?>
+                                                <?php $codFisc= getPOSTcodFisc(); ?>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Partita IVA</label>
                                                 <input type="text" name="PIVA" class="form-control" placeholder="P.IVA" value="<?php echo getPIVA($email) ?>">
-                                                <?php $PIVA= getPOSTpIVA() ?>
+                                                <?php $PIVA= getPOSTpIVA(); ?>
                                             </div>
                                         </div>
                                          <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Cap</label>
                                                 <input type="number" name="cap" class="form-control" placeholder="CAP" value="<?php echo getCAP($email)?>">
-                                                <?php $cap= getPOSTcap() ?>
+                                                <?php $cap= getPOSTcap();?>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                    <button type="submit" name='submit' class="btn btn-info btn-fill pull-right">Update Profile</button>
                                     <?php
+                                    require 'db.php';
+                                  //  require 'customPHP.php';
                                     if(isset($_POST['submit'])){
-                                        $IDutente= getID($email);
-                                        modificaDati($nome, $cognome, $indirizzo, $sede, $cap, $PIVA, $telefono, $codFisc, $nAzienda, $ID, $email);
+                                        $ID= getID($email);
+                                        modificaDati($nome, $cognome, $indirizzo, $sede, $cap, $PIVA, $telefono, $codFisc, $nAzienda, $ID, $email);  
+                                        echo refresh();
                                     }
                                     ?>
                                     <div class="clearfix"></div>

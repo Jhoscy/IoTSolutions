@@ -236,7 +236,7 @@ function getIDambiente($nomeAmbiente){
                                        $sqlA='SELECT s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA'
                                             . ' FROM monitora JOIN sensore s on s.ID=IDsensore JOIN'
                                              . ' monitoraggio mo ON mo.ID=IDmonitoraggio'
-                                                . ' WHERE IDambiente=$IDambiente';
+                                                . " WHERE IDambiente=$IDambiente";
                                        if(isset($mysqli)){
                                             $result=$mysqli->query($sqlA);
                                        }
@@ -280,14 +280,10 @@ function getIDambiente($nomeAmbiente){
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><?=
-                                                        $marca ?></td>
-                                        	<td><?=
-                                                        $tipo ?></td>
-                                        	<td><?=
-                                                        $unitaMisura ?></td>
-                                        	<td><?=
-                                                        $valore ?></td>
+                                        	<td><?= $marca ?></td>
+                                        	<td><?=$tipo ?></td>
+                                        	<td><?= $unitaMisura ?></td>
+                                        	<td><?=$valore ?></td>
                                                 <td><?=$data ?></td>
                                                 <td><?= $ora ?> </td>
                                                 <td><form method="post">

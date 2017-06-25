@@ -24,7 +24,7 @@ if(isset($mysqli)){
 
 if($resultS->num_rows>0){
     while($row=$resultS->fetch_assoc()){
-        echo '<br> id: ' , $row['ID'] , ' - MARCA: ' , $row['MARCA'] ,  ' - TIPO ' , $row['TIPO'] , "UNITA' "  , $row['UNITAMISURA'];
+       // echo '<br> id: ' , $row['ID'] , ' - MARCA: ' , $row['MARCA'] ,  ' - TIPO ' , $row['TIPO'] , "UNITA' "  , $row['UNITAMISURA'];
         $ID=$row['ID'];
         $marca=$row['MARCA'];
         $tipo=$row['TIPO'];
