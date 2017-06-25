@@ -65,9 +65,9 @@ else {
           ?>
           
           <h2><?php /*echo $first_name,' ,',$last_name;*/
-          if(isset($first_name) && isset($last_name)){
-               echo $first_name,' ,',$last_name;
-          }
+          
+               echo htmlspecialchars($first_name), htmlspecialchars(' ,'), htmlspecialchars($last_name);
+          
                   ?></h2>
           <p><?= $email ?></p>
           

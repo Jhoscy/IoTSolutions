@@ -4,16 +4,27 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/Progetto/register.php</file>
-            <file>file:/C:/xampp/htdocs/Progetto/error.php</file>
-            <file>file:/C:/xampp/htdocs/Progetto/login.php</file>
-            <file>file:/C:/xampp/htdocs/Progetto/reset_password.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/DashBoard.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/Ambienti.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/assets/js/bootstrap-select.js</file>
             <file>file:/C:/xampp/htdocs/Progetto/class.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/logout.php</file>
-            <file>file:/C:/xampp/htdocs/Progetto/profile.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/assets/js/bootstrap-notify.js</file>
+            <file>file:/C:/xampp/htdocs/Progetto/css/style.css</file>
             <file>file:/C:/xampp/htdocs/Progetto/UserProfile.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/Sensori.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/language/phpmailer.lang-fr.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/reset.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/index.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/verify.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/customPHP.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/icons.html</file>
+            <file>file:/C:/xampp/htdocs/Progetto/error.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/dashboard.html</file>
+            <file>file:/C:/xampp/htdocs/Progetto/login.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/forgot.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/reset_password.php</file>
+            <file>file:/C:/xampp/htdocs/Progetto/profile.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/success.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/db.php</file>
             <file>file:/C:/xampp/htdocs/Progetto/README.md</file>

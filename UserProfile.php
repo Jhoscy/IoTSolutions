@@ -195,7 +195,7 @@ else {
                                                 <label>Nome Azienda</label>
                                                     <input type="text" name="nazienda"class="form-control" placeholder="Azienda" value="<?php /*echo getNomeAzienda($email); */
                                                     if(isset($email)){
-                                                        echo getNomeAzienda($email); 
+                                                          echo  htmlspecialchars(getNomeAzienda($email)); 
                                                     } 
                                                      ?>">  
                                                <?php $nAzienda= getPOSTazienda();?>
@@ -206,7 +206,7 @@ else {
                                                 <label>Telefono</label>
                                                 <input type="text" name="telefono"class="form-control" placeholder="Telefono" value="<?php /* echo getTelefono($email)*/
                                                 if(isset($email)){
-                                                     echo getTelefono($email);
+                                                    echo  htmlspecialchars(getTelefono($email));
                                                 }
                                                ?>">
                                                 <?php $telefono= getPOSTtelefono(); ?>
@@ -217,7 +217,7 @@ else {
                                                 <label for="exampleInputEmail1">Email address</label>
                                                 <input type="text" name="email"class="form-control" disabled placeholder="Email" value="<?php /*echo $email*/
                                                     if (isset($email)){
-                                                        echo $email;
+                                                        echo htmlspecialchars($email);
                                                     }
                                                         ?>">
                                                 <?php $nEmail= getPOSTemail();?>
@@ -231,7 +231,7 @@ else {
                                                 <label>Nome</label>
                                                 <input type="text" name="nome" class="form-control" placeholder="Nome" value="<?php /*echo getNome($email)*/
                                                 if(isset($email)){
-                                                    echo getNome($email);
+                                                    echo htmlspecialchars(getNome($email));
                                                 }
                                                 
                                                 ?>">
@@ -243,7 +243,7 @@ else {
                                                 <label>Cognome</label>
                                                 <input type="text" name="cognome" class="form-control" placeholder="Cognome" value="<?php /*echo getCognome($email)*/
                                                 if(isset($email)){
-                                                    echo getCognome($email);
+                                                    echo htmlspecialchars(getCognome($email));
                                                 }
                                                 
                                                 ?>">
@@ -258,7 +258,7 @@ else {
                                                 <label>Indirizzo</label>
                                                 <input type="text" name="indirizzo" class="form-control" placeholder="Home Address" value="<?php /*echo getIndirizzzo($email)*/
                                                 if(isset($email)){
-                                                      echo getIndirizzzo($email);
+                                                      echo htmlspecialchars(getIndirizzzo($email));
                                                 }
                                                 
                                                 ?>">
@@ -273,7 +273,7 @@ else {
                                                 <label>Sede</label>
                                                 <input type="text" name="sede" class="form-control" placeholder="City" value="<?php /*echo getSede($email) */
                                                 if(isset($email)){
-                                                    echo getSede($email) ;
+                                                    echo htmlspecialchars(getSede($email)) ;
                                                 }
                                                 ?>">
                                                 <?php $sede= getPOSTsede(); ?>
@@ -284,7 +284,7 @@ else {
                                                 <label>Codice Fiscale</label>
                                                 <input type="text" name="codiceFiscale" class="form-control" placeholder="CodFisc" value="<?php /*echo getCodFisc($email)*/
                                                 if(isset($email)){
-                                                    echo getCodFisc($email);
+                                                    echo htmlspecialchars(getCodFisc($email));
                                                 }
                                                 ?>">
                                                 <?php $codFisc= getPOSTcodFisc(); ?>
@@ -295,7 +295,7 @@ else {
                                                 <label>Partita IVA</label>
                                                 <input type="text" name="PIVA" class="form-control" placeholder="P.IVA" value="<?php /*echo getPIVA($email)*/
                                                 if(isset($email)){
-                                                    echo getPIVA($email);
+                                                    echo htmlspecialchars(getPIVA($email));
                                                 }
                                                 
                                                 ?>">
@@ -307,7 +307,7 @@ else {
                                                 <label>Cap</label>
                                                 <input type="number" name="cap" class="form-control" placeholder="CAP" value="<?php /*echo getCAP($email)*/
                                                 if(isset($email)){
-                                                    echo getCAP($email);
+                                                    echo htmlspecialchars(getCAP($email));
                                                 }
                                                 ?>">
                                                 <?php $cap= getPOSTcap();?>
@@ -341,7 +341,7 @@ else {
 
                                     <h4 class="title"><?php  /*echo getNome($email) */
                                     if(isset($email)){
-                                         echo getNome($email) ;
+                                         echo htmlspecialchars(getNome($email));
                                     }
                                    ?><br />
                                          <small></small>
