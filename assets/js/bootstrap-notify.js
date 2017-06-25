@@ -75,10 +75,10 @@
 		return str;
 	};
 
-	function isDuplicateNotification(notification) {
+                    function isDuplicateNotification(notification) {
 		var isDupe = false;
 
-		$('[data-notify="container"]').each(function (i, el) {
+		$('[data-notify="container"]').each(function (/*i*/el) {
 			var $el = $(el);
 			var title = $el.find('[data-notify="title"]').text().trim();
 			var message = $el.find('[data-notify="message"]').html().trim();
@@ -98,12 +98,12 @@
 		});
 
 		return isDupe;
-	}
+	};
 
-	function Notify(element, content, options) {
+	 function Notify(/*element*/ content, options) {
 		// Setup Content of Notify
 		var contentObj = {
-			content: {
+			content: {    
 				message: typeof content === 'object' ? content.message : content,
 				title: content.title ? content.title : '',
 				icon: content.icon ? content.icon : '',
@@ -134,7 +134,7 @@
 		if (this.settings.allow_duplicates || (!this.settings.allow_duplicates && !isDuplicateNotification(this))) {
 			this.init();
 		}
-	}
+	};
 	
 	$.extend(Notify.prototype, {
 		init: function () {
@@ -194,7 +194,7 @@
 								this.$ele.find('[data-notify="' + cmd + '"]').html(commands[cmd]);
 						}
 					}
-					var posX = this.$ele.outerHeight() + parseInt(self.settings.spacing) + parseInt(self.settings.offset.y);
+					var posX = this.$ele.outerHeight() + parseInt(self.settings.spacing,10) + parseInt(self.settings.offset.y,10);
 					self.reposition(posX);
 				},
 				close: function () {
@@ -262,7 +262,7 @@
 				settings = this.settings;
 
 			$('[data-notify-position="' + this.settings.placement.from + '-' + this.settings.placement.align + '"]:not([data-closing="true"])').each(function () {
-				offsetAmt = Math.max(offsetAmt, parseInt($(this).css(settings.placement.from)) + parseInt($(this).outerHeight()) + parseInt(settings.spacing));
+				offsetAmt = Math.max(offsetAmt, parseInt($(this).css(settings.placement.from),10) + parseInt($(this,10).outerHeight()) + parseInt(settings.spacing,10));
 			});
 			if (this.settings.newest_on_top === true) {
 				offsetAmt = this.settings.offset.y;
@@ -278,16 +278,18 @@
 					css.left = 0;
 					css.right = 0;
 					break;
+                                                                        default :
+                                                                            break;
 			}
 			this.$ele.css(css).addClass(this.settings.animate.enter);
-			$.each(Array('webkit-', 'moz-', 'o-', 'ms-', ''), function (index, prefix) {
+			$.each(Array('webkit-', 'moz-', 'o-', 'ms-', ''), function (/*index*/ prefix) {
 				self.$ele[0].style[prefix + 'AnimationIterationCount'] = 1;
 			});
 
 			$(this.settings.element).append(this.$ele);
 
 			if (this.settings.newest_on_top === true) {
-				offsetAmt = (parseInt(offsetAmt) + parseInt(this.settings.spacing)) + this.$ele.outerHeight();
+				offsetAmt = (parseInt(offsetAmt,10) + parseInt(this.settings.spacing),10) + this.$ele.outerHeight();
 				this.reposition(offsetAmt);
 			}
 
@@ -304,10 +306,8 @@
 			});
 
 			setTimeout(function () {
-				if (!hasAnimation) {
-					if ($.isFunction(self.settings.onShown)) {
-						self.settings.onShown.call(this);
-					}
+				if (!hasAnimation && $.isFunction(self.settings.onShown)) {
+					self.settings.onShown.call(this);
 				}
 			}, 600);
 		},
@@ -328,7 +328,7 @@
 			if (this.settings.delay > 0) {
 				self.$ele.data('notify-delay', self.settings.delay);
 				var timer = setInterval(function () {
-					var delay = parseInt(self.$ele.data('notify-delay')) - self.settings.timer;
+					var delay = parseInt(self.$ele.data('notify-delay'),10) - self.settings.timer;
 					if ((self.$ele.data('data-hover') === 'false' && self.settings.mouse_over === "pause") || self.settings.mouse_over != "pause") {
 						var percent = ((self.settings.delay - delay) / self.settings.delay) * 100;
 						self.$ele.data('notify-delay', delay);
@@ -343,7 +343,7 @@
 		},
 		close: function () {
 			var self = this,
-				posX = parseInt(this.$ele.css(this.settings.placement.from)),
+				posX = parseInt(this.$ele.css(this.settings.placement.from),10),
 				hasAnimation = false;
 
 			this.$ele.data('closing', 'true').addClass(this.settings.animate.exit);
@@ -380,7 +380,7 @@
 			}
 			$elements.each(function () {
 				$(this).css(self.settings.placement.from, posX);
-				posX = (parseInt(posX) + parseInt(self.settings.spacing)) + $(this).outerHeight();
+				posX = (parseInt(posX,10) + parseInt(self.settings.spacing),10) + $(this).outerHeight();
 			});
 		}
 	});
