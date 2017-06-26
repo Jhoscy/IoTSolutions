@@ -1,6 +1,7 @@
 <?php
 /* Displays user information and some useful messages */
 require 'db.php';
+require 'customPHP.php';
 session_start();
 
 
@@ -30,7 +31,60 @@ function getIDambiente($nomeAmbiente){
     }
     $mysqli->close();
     return $IDambiente;
-    
+}
+
+function removeSensore2($Sensore, $nomeAmbiente){
+     require 'db.php';
+     $IDambiente=getIDambiente($nomeAmbiente);
+     $Sensore=mostraSensore($nomeAmbiente);
+     if(isset($_POST['submit2'])){
+         $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
+         $result= $mysqli->query($SQL);
+         //var_dump($result);
+         echo refresh();
+    }
+}
+
+function removeSensore1($Sensore, $nomeAmbiente){
+     require 'db.php';
+     $IDambiente=getIDambiente($nomeAmbiente);
+     $Sensore=mostraSensore($nomeAmbiente);
+     if(isset($_POST['submit1'])){
+         $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
+         $result= $mysqli->query($SQL);
+         //var_dump($result);
+         echo refresh();
+    }
+}
+
+
+
+function mostraSensore($nomeAmbiente){
+     require 'db.php';
+      $IDambiente= getIDambiente($nomeAmbiente);
+        $sqlA='SELECT s.ID, s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA'
+              . ' FROM monitora JOIN sensore s on s.ID=IDsensore JOIN'
+              . ' monitoraggio mo ON mo.ID=IDmonitoraggio'
+              . " WHERE IDambiente=$IDambiente";
+                 if(isset($mysqli)){
+                      $result=$mysqli->query($sqlA);
+                      }
+                                
+                  if(!isset($result)){
+                     trigger_error('invalid query');
+                    }
+                  if($result->num_rows>0){
+                        while($row=$result->fetch_assoc()){
+                            $SensoreDato[$IDambiente]=array($row['MARCA'], $row['TIPO'], $row['UNITAMISURA'], $row['VALORE'], $row['DATA'], $row['ORA']);
+                            //echo "ID:".$row['ID'];
+                            //echo print_r($SensoreDato);
+                            //echo $SensoreDato[3][0];
+                            }
+                  }else{
+                       $SensoreDato[$IDambiente]=array(0, 0, 0, 0, 0,0);
+                      }
+        $mysqli->close();
+        return $SensoreDato;
 }
 
     function getLastID(){
@@ -49,13 +103,8 @@ function getIDambiente($nomeAmbiente){
             $lastID=1;
             return $lastID;
         }
-        
+        $mysqli->close();
     }
-    if(isset($mysqli)){
-         $mysqli->close();
-    }
-      
-    
 ?>
 <!doctype html>
 <html lang="en">
@@ -229,41 +278,8 @@ function getIDambiente($nomeAmbiente){
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Casa</h4>
-                                <?php 
-                                require 'db.php';
-                                $nomeAmbiente='casa';
-                                $IDambiente= getIDambiente($nomeAmbiente);
-                                       $sqlA='SELECT s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA'
-                                            . ' FROM monitora JOIN sensore s on s.ID=IDsensore JOIN'
-                                             . ' monitoraggio mo ON mo.ID=IDmonitoraggio'
-                                                . " WHERE IDambiente=$IDambiente";
-                                       if(isset($mysqli)){
-                                            $result=$mysqli->query($sqlA);
-                                       }
-                                
-                                       if(!isset($result)){
-                                           trigger_error('invalid query');
-                                           
-                                       }
-                                        if($result->num_rows>0){
-                                         while($row=$result->fetch_assoc()){
-                                                 $marca=$row['MARCA'];
-                                                 $tipo=$row['TIPO'];
-                                                 $unitaMisura=$row['UNITAMISURA'];
-                                                 $valore=$row['VALORE'];
-                                                 $data=$row['DATA'];
-                                                $ora=$row['ORA'];
-                                                }
-                                        }else{
-                                            $marca=0;
-                                            $tipo=0;
-                                            $unitaMisura=0;
-                                            $valore=0;
-                                            $data=0;
-                                            $ora=0;
-                                        }
-                                        $mysqli->close();
-                                                                        ?>
+                                <?php $nomeAmbiente='casa';
+                                 $Sensore=mostraSensore($nomeAmbiente);?>
                                 <p class="category">Here is a subtitle for this table</p>
                             </div>
                             <div class="content table-responsive table-full-width">
@@ -280,33 +296,31 @@ function getIDambiente($nomeAmbiente){
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><?= $marca ?></td>
-                                        	<td><?=$tipo ?></td>
-                                        	<td><?= $unitaMisura ?></td>
-                                        	<td><?=$valore ?></td>
-                                                <td><?=$data ?></td>
-                                                <td><?= $ora ?> </td>
+                                        	<td><?= $Sensore[3][0] ?></td>
+                                        	<td><?= $Sensore[3][1] ?></td>
+                                        	<td><?= $Sensore[3][2] ?></td>
+                                        	<td><?= $Sensore[3][3] ?></td>
+                                                <td><?= $Sensore[3][4] ?></td>
+                                                <td><?= $Sensore[3][5] ?> </td>
                                                 <td><form method="post">
-                                                     <input type="submit" name="submit" value="Remove"/>
-                                                     <?php
-                                                     require 'db.php';
-                                                        if(isset($_POST['submit'])){
-                                                            csrfProtector::init();;
-                                                             $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
-                                                             $result = $mysqli->query($SQL);
-                                                             //var_dump($result);
-                                                             }
-                                                                ?>
+                                                     <input type="submit" name="submit1" value="Remove"/>
+                                                     <?php echo removeSensore1($Sensore, $nomeAmbiente)        ?>
                                                     </form>
                                                 </td>
-                                                 <!--<button class="button button-block" name="Sensore" />Remove</button></td> -->
                                                 </tr>
                                         <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
+                                        	<td><?= $Sensore[3][0] ?></td>
+                                        	<td><?= $Sensore[3][1] ?></td>
+                                        	<td><?= $Sensore[3][2] ?></td>
+                                        	<td><?= $Sensore[3][3] ?></td>
+                                        	<td><?= $Sensore[3][4] ?></td>
+                                                <td><?= $Sensore[3][5] ?></td>
+                                                <td>
+                                                    <form method="post">
+                                                     <input type="submit" name="submit2" value="Remove"/>
+                                                     <?php echo removeSensore2($Sensore, $nomeAmbiente)        ?>
+                                                    </form>
+                                                </td>
                                         </tr>
                                         <tr>
                                         	<td>3</td>
@@ -412,32 +426,8 @@ function getIDambiente($nomeAmbiente){
 
         <footer class="footer">
             <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">IoT Solutions</a>, made with passion
                 </p>
             </div>
         </footer>

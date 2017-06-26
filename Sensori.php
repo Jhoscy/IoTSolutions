@@ -26,14 +26,7 @@ function selectSensore(){
     }
     if($resultS->num_rows>0){
          while($row=$resultS->fetch_assoc()){
-             $ID=$row['ID'];
-             $marca=$row['MARCA'];
-             $tipo=$row['TIPO'];
-             $misura=$row['UNITAMISURA'];
-        
-             $Sensore[$row['ID']]=array($ID, $marca, $tipo, $misura);
-               
-          
+           $Sensore[$row['ID']]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
          //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
          }
       }
@@ -42,9 +35,6 @@ function selectSensore(){
 }
 $Sensori= selectSensore();
 
-function getSelect(){
-    
-}
 
     function get_options(){
         require 'db.php';
@@ -69,7 +59,6 @@ function getSelect(){
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
-               // echo ' ID: ',$row['ID'];
                 $IDambiente=$row['ID'];
                 
             }
@@ -82,25 +71,49 @@ function getSelect(){
     
     function getLastID(){
         require 'db.php';
-        
         $sql='SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)';
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
-                $lastID=$row['ID'];
-                echo' IDLAST:' ,$lastID;
-                
+              $lastID=$row['ID'];
             }
-            return $lastID;
         }else{
-            $lastID=1;
-            return $lastID;
+              $row['ID']=0;
+              $lastID=$row['ID'];
+            }
+            //var_dump($result);
+              //echo"LAST ID: ".$lastID;
+               return $lastID;  
         }
-        
-    }
-    function getPOSTambienti (){
-       $ambiente= filter_input(INPUT_POST, 'ambienti');
+       
+    
+    //echo getLastID();
+    
+    function getPOSTambienti1 (){
+       $ambiente= filter_input(INPUT_POST, 'ambienti1');
        return $ambiente;
+}
+
+function getPOSTambienti2(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti2');
+    return $ambiente;
+}
+
+function getPOSTambienti3(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti3');
+    return $ambiente;
+}
+function getPOSTambienti4(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti4');
+    return $ambiente;
+}
+function getPOSTambienti5(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti5');
+    return $ambiente;
+}
+function getPOSTambienti6(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti6');
+    return $ambiente;
 }
              $mysqli->close();
     
@@ -298,29 +311,13 @@ function getSelect(){
                                         	<td><?= $Sensori[1][3]?></td>
                                                 <td>
                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <select name="ambienti1" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                     </select>
-                                                    <?php $nomeAmbiente1= getPOSTambienti();
-                                                            echo $nomeAmbiente1;
-                                                    
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    } else{
-                                                        
-                                                    }
-                                                    echo insert_into_monitora( $Sensori[1][0] , $nomeAmbiente1, $_SESSION['count']);
+                                                    <?php $nomeAmbiente1= getPOSTambienti1();
+                                                    $incr=getLastID();
+                                                    echo insert_into_monitora( $Sensori[1][0] , $nomeAmbiente1, ++$incr);
                                                      ?>
-                                                        
                                                     </form>
                                                 </tr>
                                         <tr>
@@ -330,27 +327,12 @@ function getSelect(){
                                         	<td><?= $Sensori[2][3] ?></td>
                                                 <td>
                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <select name="ambienti2" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
-                                                    <?php $nomeAmbiente2= getPOSTambienti();
-                                                        echo $nomeAmbiente2;
-                                                    
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    }else{
-                                                        
-                                                    }
-                                                    echo insert_into_monitora( $Sensori[2][0] , $nomeAmbiente2, $_SESSION['count']);?>
+                                                    <?php $nomeAmbiente2= getPOSTambienti2();
+                                                    $incr2=getLastID();
+                                                    echo insert_into_monitora( $Sensori[2][0] , $nomeAmbiente2, ++$incr2);?>
                                                          
                                                     </form>
                                                 </td>
@@ -362,28 +344,12 @@ function getSelect(){
                                         	<td><?= $Sensori[3][3] ?></td>
                                                 <td>
                                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                    <select name="ambienti3" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
-                                                    <?php $nomeAmbiente3= getPOSTambienti();
-                                                            echo $nomeAmbiente3;
-                                                    
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    }else{
-                                                        
-                                                    }
-                                                    echo insert_into_monitora( $Sensori[3][0] , $nomeAmbiente3, $_SESSION['count']);?>
-                                                         
+                                                    <?php $nomeAmbiente3= getPOSTambienti3();
+                                                         $incr3=getLastID();
+                                                    echo insert_into_monitora( $Sensori[3][0] , $nomeAmbiente3,++$incr3);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -393,28 +359,13 @@ function getSelect(){
                                         	<td><?= $Sensori[4][2] ?></td>
                                         	<td><?= $Sensori[4][3] ?></td>
                                                 <td>
-                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti4" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
-                                                    </select>
-                                                    <?php $nomeAmbiente4= getPOSTambienti();
-                                                            echo $nomeAmbiente4;
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    }else{
-                                                        
-                                                    }
-                                                    echo insert_into_monitora( $Sensori[4][0] , $nomeAmbiente4, $_SESSION['count']);?>
-                                                        
+                                                   </select>
+                                                    <?php $nomeAmbiente4= getPOSTambienti4();
+                                                         $incr4=getLastID();
+                                                    echo insert_into_monitora( $Sensori[4][0] , $nomeAmbiente4,++$incr4);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -424,28 +375,13 @@ function getSelect(){
                                         	<td><?= $Sensori[5][2] ?></td>
                                         	<td><?= $Sensori[5][3] ?></td>
                                                 <td>
-                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti5" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
-                                                    <?php $nomeAmbiente5= getPOSTambienti();
-                                                            echo $nomeAmbiente5;
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    }else{
-                                                        
-                                                    }
-                                                    echo insert_into_monitora( $Sensori[5][0] , $nomeAmbiente5, $_SESSION['count']);?>
-                                                         
+                                                    <?php $nomeAmbiente5= getPOSTambienti5();
+                                                         $incr5=getLastID();
+                                                    echo insert_into_monitora( $Sensori[5][0] , $nomeAmbiente5,++$incr5);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -455,28 +391,13 @@ function getSelect(){
                                         	<td><?= $Sensori[6][2] ?></td>
                                         	<td><?= $Sensori[6][3] ?></td>
                                                 <td>
-                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
+                                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <select name="ambienti6" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
-                                                    <?php $nomeAmbiente6= getPOSTambienti();
-                                                            echo $nomeAmbiente6;
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }elseif(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                        
-                                                        //echo $_SESSION['count'];
-                                                    }else{
-                                                        
-                                                    }
-                                                    echo insert_into_monitora( $Sensori[6][0] , $nomeAmbiente6, $_SESSION['count']);?>
-                                                         
+                                                    <?php $nomeAmbiente6= getPOSTambienti6();
+                                                         $incr6=getLastID();
+                                                    echo insert_into_monitora( $Sensori[6][0] , $nomeAmbiente6,++$incr6);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -489,32 +410,8 @@ function getSelect(){
 
         <footer class="footer">
             <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">IoT Solutions</a>, made with passion
                 </p>
             </div>
         </footer>
