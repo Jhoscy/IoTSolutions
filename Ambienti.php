@@ -33,27 +33,60 @@ function getIDambiente($nomeAmbiente){
     return $IDambiente;
 }
 
-function removeSensore2($Sensore, $nomeAmbiente){
+function traslateSensori(){
+    require 'db.php';
+    $sql='SELECT ID FROM monitora WHERE=(SELECT MIN(ID) FROM monitora)';
+    $result=$mysqli->query($sql);
+    if($result->num_rows>0){
+        while($row=$result->fetch_assoc()){
+            echo "ID: ".$row['ID'];
+        }
+    }
+    var_dump($result);   
+}
+//echo traslateSensori();
+
+function removeSensore2($Sensore, $nomeAmbiente, $ID){
      require 'db.php';
      $IDambiente=getIDambiente($nomeAmbiente);
      $Sensore=mostraSensore($nomeAmbiente);
      if(isset($_POST['submit2'])){
-         $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
+         $SQL = "DELETE FROM monitora WHERE IDsensore=$IDsensore";
          $result= $mysqli->query($SQL);
          //var_dump($result);
          echo refresh();
     }
 }
 
-function removeSensore1($Sensore, $nomeAmbiente){
+function removeSensore1($Sensore, $nomeAmbiente, $ID){
      require 'db.php';
      $IDambiente=getIDambiente($nomeAmbiente);
      $Sensore=mostraSensore($nomeAmbiente);
      if(isset($_POST['submit1'])){
-         $SQL = "DELETE FROM monitora WHERE IDambiente=$IDambiente";
-         $result= $mysqli->query($SQL);
+         $SQL = "SELECT ID FROM monitora WHERE ID=$ID";
+         $result=$mysqli->query($SQL);
+         if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+             $IDmonitora=$row['ID'];
+              echo " ID: ".$IDmonitora;
+            }
+         }
+         $SQL1="DELETE FROM monitora WHERE ID=$ID";
+         $mysqli->query($SQL1);
+         $SQL3="SELECT ID FROM monitora WHERE ID>$IDmonitora";
+         $mysqli->query($SQL3);
+         if($result->num_rows>0){
+             while($row=$result->fetch_assoc()){
+                 $update=$row['ID'];
+                 echo $update;
+                 $SQL4="UPDATE monitora SET ID=$update-1 WHERE ID=$update";
+                 $mysqli->query($SQL4);
+             }
+         }
+       
          //var_dump($result);
-         echo refresh();
+        
+         //echo refresh();
     }
 }
 
@@ -62,10 +95,9 @@ function removeSensore1($Sensore, $nomeAmbiente){
 function mostraSensore($nomeAmbiente){
      require 'db.php';
       $IDambiente= getIDambiente($nomeAmbiente);
-        $sqlA='SELECT s.ID, s.MARCA, s.TIPO, s.UNITAMISURA, mo.VALORE, mo.DATA, mo.ORA'
-              . ' FROM monitora JOIN sensore s on s.ID=IDsensore JOIN'
-              . ' monitoraggio mo ON mo.ID=IDmonitoraggio'
-              . " WHERE IDambiente=$IDambiente";
+        $sqlA='SELECT s.marca, s.tipo, s.unitamisura, m.valore, m.data, m.ora'
+                . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
+                . " WHERE IDambiente=$IDambiente";
                  if(isset($mysqli)){
                       $result=$mysqli->query($sqlA);
                       }
@@ -74,37 +106,20 @@ function mostraSensore($nomeAmbiente){
                      trigger_error('invalid query');
                     }
                   if($result->num_rows>0){
+                      $SensoreDato[getLastID()]=0;
+                      $i=0;
                         while($row=$result->fetch_assoc()){
-                            $SensoreDato[$IDambiente]=array($row['MARCA'], $row['TIPO'], $row['UNITAMISURA'], $row['VALORE'], $row['DATA'], $row['ORA']);
-                            //echo "ID:".$row['ID'];
-                            //echo print_r($SensoreDato);
-                            //echo $SensoreDato[3][0];
+                            $SensoreDato[$i]=array($row['marca'], $row['tipo'], $row['unitamisura'], $row['valore'], $row['data'], $row['ora']);
+                            $i++;
                             }
                   }else{
-                       $SensoreDato[$IDambiente]=array(0, 0, 0, 0, 0,0);
-                      }
+                      $SensoreDato[getLastID()]=array(0,0,0,0,0,0);
+                    }
         $mysqli->close();
+         //echo print_r($SensoreDato);
         return $SensoreDato;
 }
 
-    function getLastID(){
-        require 'db.php';
-        
-        $sql='SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)';
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                $lastID=$row['ID'];
-                echo' IDLAST:' ,$lastID;
-                
-            }
-            return $lastID;
-        }else{
-            $lastID=1;
-            return $lastID;
-        }
-        $mysqli->close();
-    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -296,29 +311,29 @@ function mostraSensore($nomeAmbiente){
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><?= $Sensore[3][0] ?></td>
-                                        	<td><?= $Sensore[3][1] ?></td>
-                                        	<td><?= $Sensore[3][2] ?></td>
-                                        	<td><?= $Sensore[3][3] ?></td>
-                                                <td><?= $Sensore[3][4] ?></td>
-                                                <td><?= $Sensore[3][5] ?> </td>
+                                        	<td><?= $Sensore[0][0] ?></td>
+                                        	<td><?= $Sensore[0][1] ?></td>
+                                        	<td><?= $Sensore[0][2] ?></td>
+                                        	<td><?= $Sensore[0][3] ?></td>
+                                                <td><?= $Sensore[0][4] ?></td>
+                                                <td><?= $Sensore[0][5] ?> </td>
                                                 <td><form method="post">
                                                      <input type="submit" name="submit1" value="Remove"/>
-                                                     <?php echo removeSensore1($Sensore, $nomeAmbiente)        ?>
+                                                     <?php echo removeSensore1($Sensore, $nomeAmbiente, 1)        ?>
                                                     </form>
                                                 </td>
                                                 </tr>
                                         <tr>
-                                        	<td><?= $Sensore[3][0] ?></td>
-                                        	<td><?= $Sensore[3][1] ?></td>
-                                        	<td><?= $Sensore[3][2] ?></td>
-                                        	<td><?= $Sensore[3][3] ?></td>
-                                        	<td><?= $Sensore[3][4] ?></td>
-                                                <td><?= $Sensore[3][5] ?></td>
+                                        	<td><?= $Sensore[1][0] ?></td>
+                                        	<td><?= $Sensore[1][1] ?></td>
+                                        	<td><?= $Sensore[1][2] ?></td>
+                                        	<td><?= $Sensore[1][3] ?></td>
+                                        	<td><?= $Sensore[1][4] ?></td>
+                                                <td><?= $Sensore[1][5] ?></td>
                                                 <td>
                                                     <form method="post">
                                                      <input type="submit" name="submit2" value="Remove"/>
-                                                     <?php echo removeSensore2($Sensore, $nomeAmbiente)        ?>
+                                                     <?php echo removeSensore2($Sensore, $nomeAmbiente,2)        ?>
                                                     </form>
                                                 </td>
                                         </tr>

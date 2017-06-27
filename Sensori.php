@@ -1,6 +1,7 @@
 <?php
 /* Displays user information and some useful messages */
 require 'db.php';
+require 'customPHP.php';
 session_start();
 
 
@@ -62,29 +63,15 @@ $Sensori= selectSensore();
                 $IDambiente=$row['ID'];
                 
             }
-             $sql1="INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)";
-             $mysqli->query($sql1);
+             $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore) VALUES($a,$IDambiente,$IDsensore)";
+             $result=$mysqli->query($sql1);
+             //var_dump($result);
              
               
         }
     }
     
-    function getLastID(){
-        require 'db.php';
-        $sql='SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)';
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-              $lastID=$row['ID'];
-            }
-        }else{
-              $row['ID']=0;
-              $lastID=$row['ID'];
-            }
-            //var_dump($result);
-              //echo"LAST ID: ".$lastID;
-               return $lastID;  
-        }
+    
        
     
     //echo getLastID();
@@ -115,7 +102,6 @@ function getPOSTambienti6(){
     $ambiente=filter_input(INPUT_POST, 'ambienti6');
     return $ambiente;
 }
-             $mysqli->close();
     
 ?>
 <!doctype html>

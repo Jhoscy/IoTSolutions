@@ -197,6 +197,23 @@ function getPOSTcap(){
         $mysqli->close();
        
     }
+    
+    function getLastID(){
+        require 'db.php';
+        $sql='SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)';
+        $result=$mysqli->query($sql);
+        if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+              $lastID=$row['ID'];
+            }
+        }else{
+              $row['ID']=0;
+              $lastID=$row['ID'];
+            }
+            //var_dump($result);
+              //echo"LAST ID: ".$lastID;
+               return $lastID;  
+        }
                                                                 
     $mysqli->close();
 
