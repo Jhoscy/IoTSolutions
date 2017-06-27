@@ -50,6 +50,30 @@ if($resultS->num_rows>0){
                    
     }
     
+    function getDati(){
+        require 'db.php';
+        $sql="SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA ".
+                    "FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID ".
+                    "WHERE IDcliente=1";;
+        $result=$mysqli->query($sql);
+        if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+                echo ' <tr>';
+                 echo '<td>', $row['NOME'],  ' </td>';
+                echo '<td>',  $row['MARCA'],  ' </td>';
+                echo '<td>',  $row['TIPO'],  ' </td>';
+                 echo '<td>',  $row['VALORE'],  ' </td>';
+                  echo '<td>', $row['UNITAMISURA'],  ' </td>';
+                  echo '<td>',  $row['DATA'],  ' </td>';
+                  echo '<td>',  $row['ORA'],  ' </td>';
+                  echo ' <tr>';
+                
+            }
+            
+        }
+        
+    }
+    
     function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
         require 'db.php';
         $IDambiente=-1;
@@ -268,79 +292,19 @@ if($resultS->num_rows>0){
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>ID</th>
-                                    	<th>Nome</th>
+                                        <th>Ambiente</th>
+                                    	<th>Marca</th>
+                                    	<th>Tipo</th>
                                     	<th>Valore</th>
-                                    	<th>Misura</th>
-                                    	<th>Add Sensore</th>
+                                    	<th>Unità di misura</th>
+                                        <th>Data monitoraggio</th>
+                                        <th>Ora monitoraggio</th>
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        	<td><?= $ID ?></td>
-                                        	<td><?= $marca ?></td>
-                                        	<td><?= $tipo ?></td>
-                                        	<td><?= $misura ?></td>
-                                                <td>
-                                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                                    <select name="ambienti" onchange="this.form.submit();">
-                                                    <?php echo get_options();?>
-                                                    </select>
-                                                    <?php $nomeAmbiente= getPOSTambienti();
-                                                    echo $nomeAmbiente;
-                                                    
-                                                     //reset to 1
-                                                    if(isset($_POST['reset'])){
-                                                        unset($_SESSION['count']);
-                                                    }
-                                                    //Set or increment session number only if dropdown list is clicked
-                                                    if(empty($_SESSION['count'])){
-                                                        $_SESSION['count']=1;
-                                                    }else if(isset($_POST['ambienti'])){
-                                                        $_SESSION['count']++;
-                                                 
-                                                        }else{};
-                                                        //echo $_SESSION['count'];
-                                                    
-                                                    echo insert_into_monitora($ID, $nomeAmbiente, $_SESSION['count']);?>
-                                                    </form>
-                                                <!-- <button class="button button-block" name="Sensore" />Add Sensore</button></td> -->
-                                                </tr>
-                                        <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
-                                        </tr>
+                                        <?php
+                                          getDati();
+                                       ?>
                                     </tbody>
                                 </table>
 
