@@ -285,7 +285,6 @@ function mostraSensore($nomeAmbiente){
                   }
                     
         $mysqli->close();
-         //echo print_r($SensoreDato);
         return $SensoreDato;
 }
 
@@ -297,7 +296,8 @@ function mostraSensore($nomeAmbiente){
     
              if($resultA->num_rows>0){
                while($row=$resultA->fetch_assoc()){
-               echo '<option value="',$row['NOME'],'">',$row['NOME'],'</option>';
+               $str= '<option value="'.$row['NOME'].'">'.$row['NOME'].'</option>';
+               echo $str;
                       }
                }else {
                   echo '0 results';
@@ -378,11 +378,12 @@ function random($min, $max){
    return rand($min*$factor, $max*$factor) / $factor;
 }
 
- function getDati(){
+ function getDati($email){
         require 'db.php';
+        $IDutente=getUserID($email);
         $sql='SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA '.
                     'FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID '.
-                    'WHERE IDcliente=3';
+                    "WHERE IDcliente=$IDutente";
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
