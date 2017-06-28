@@ -210,8 +210,6 @@ function getPOSTcap(){
               $row['ID']=0;
               $lastID=$row['ID'];
             }
-            //var_dump($result);
-              //echo"LAST ID: ".$lastID;
                return $lastID;  
         }
                                                                 

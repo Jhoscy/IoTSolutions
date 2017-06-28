@@ -33,11 +33,14 @@ function getIDambiente($nomeAmbiente){
     return $IDambiente;
 }
 
+function traslateMonitoraggio(){
+    
+}
 
 function removeSensore1($IDriga, $submit){
      require 'db.php';
      if(isset($_POST[$submit])){
-           $SQL="UPDATE monitoraggio SET marca='0', tipo='0', valore='0', data='0', ora='0', misura='0' WHERE ID=$IDriga";
+           $SQL="DELETE FROM monitora WHERE ID=$IDriga";
            $result=$mysqli->query($SQL);
            var_dump($result);
               echo refresh();
@@ -49,17 +52,14 @@ function removeSensore1($IDriga, $submit){
 function mostraSensore($nomeAmbiente){
      require 'db.php';
       $IDambiente= getIDambiente($nomeAmbiente);
-      $sqlA='insert into monitoraggio SELECT m.ID, s.marca, s.tipo, m.valore, m.data, m.ora, s.unitamisura, m.IDambiente, m.IDsensore'
+      $sqlA='SELECT m.ID, s.marca, s.tipo, m.valore, m.data, m.ora, s.unitamisura'
                 . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
                 . " WHERE IDambiente=$IDambiente";
       
-        //$sqlA='INSERT INTO monitoraggio(marca, tipo, valore, data, ora, misura, IDambiente, IDsensore) VALUES(SELECT s.marca, s.tipo, m.valore, m.data, m.ora, s.unitamisura, m.IDambiente, m.IDsensore'
-               // . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
-           //   . " WHERE IDambiente=$IDambiente)";
-        $slqB="SELECT marca,tipo,valore,data,ora,misura from monitoraggio WHERE IDambiente=$IDambiente";
+                //$slqB="SELECT marca,tipo,valore,data,ora,misura from monitoraggio WHERE IDambiente=$IDambiente";
                  if(isset($mysqli)){
-                      $resulta=$mysqli->query($sqlA);
-                      $result=$mysqli->query($slqB);
+                      $result=$mysqli->query($sqlA);
+                      
                       }
                                 
                   if(!isset($result)){
@@ -69,14 +69,20 @@ function mostraSensore($nomeAmbiente){
                       $SensoreDato[getLastID()]=0;
                       $i=0;
                         while($row=$result->fetch_assoc()){
-                            $SensoreDato[$i]=array($row['marca'], $row['tipo'], $row['misura'], $row['valore'], $row['data'],$row['ora']);
+                            $SensoreDato[$i]=array($row['marca'], $row['tipo'], $row['unitamisura'], $row['valore'], $row['data'],$row['ora'], $row['ID']);
                             $i++;
                             }
+                            if($i<6){
+                                for($j=$i; $j<6; $j++){
+                                 $SensoreDato[$j]=array(0,0,0,0,0,0);
+                                }
+                      }
                   }else{
                       for($i=0; $i<6; $i++){
                           $SensoreDato[$i]=array(0,0,0,0,0,0);
                       }
-                    }
+                  }
+                    
         $mysqli->close();
          //echo print_r($SensoreDato);
         return $SensoreDato;
@@ -282,7 +288,9 @@ function mostraSensore($nomeAmbiente){
                                                 <td><?= $Sensore[0][5] ?> </td>
                                                 <td><form method="post">
                                                      <input type="submit" name="submit1"  value="Remove"/>
-                                                     <?php removeSensore1(1, 'submit1');        ?>
+                                                     <?php if(isset($Sensore[0][6])){
+                                                            removeSensore1($Sensore[0][6], 'submit1');    
+                                                     }?>
                                                     </form>
                                                 </td>
                                                 </tr>
@@ -296,7 +304,9 @@ function mostraSensore($nomeAmbiente){
                                                 <td>
                                                     <form method="post">
                                                      <input type="submit" name="submit2" value="Remove"/>
-                                                     <?php echo removeSensore1(2, 'submit2')        ?>
+                                                     <?php if(isset($Sensore[1][6])){
+                                                          removeSensore1($Sensore[1][6], 'submit2');     
+                                                     }?>
                                                     </form>
                                                 </td>
                                         </tr>
@@ -310,7 +320,9 @@ function mostraSensore($nomeAmbiente){
                                                 <td>
                                                      <form method="post">
                                                      <input type="submit" name="submit3" value="Remove"/>
-                                                     <?php echo removeSensore1(3, 'submit3')        ?>
+                                                     <?php if(isset($Sensore[2][6])){
+                                                          removeSensore1($Sensore[2][6], 'submit3');
+                                                     }?>
                                                     </form>
                                                 </td>
                                         </tr>
