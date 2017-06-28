@@ -4,6 +4,13 @@ require 'db.php';
 require 'customPHP.php';
 session_start();
 
+define('ZERO',0);
+define('UNO',1);
+define('DUE',2);
+define('TRE',3);
+define('QUATTRO',4);
+define('CINQUE',5);
+define('SEI',6);
 
 // Check if user is logged in using the session variable
 if ( $_SESSION['logged_in'] != 1 ) {
@@ -19,74 +26,6 @@ else {
     $active = $_SESSION['active'];
 }
 
-
-function getIDambiente($nomeAmbiente){
-    require 'db.php';
-    $sql="SELECT ID FROM ambiente WHERE nome='$nomeAmbiente'";
-    $result=$mysqli->query($sql);
-    if($result->num_rows>0){
-        while($row=$result->fetch_assoc()){
-            $IDambiente=$row['ID'];
-        }
-    }
-    $mysqli->close();
-    return $IDambiente;
-}
-
-function traslateMonitoraggio(){
-    
-}
-
-function removeSensore1($IDriga, $submit){
-     require 'db.php';
-     if(isset($_POST[$submit])){
-           $SQL="DELETE FROM monitora WHERE ID=$IDriga";
-           $result=$mysqli->query($SQL);
-           var_dump($result);
-              echo refresh();
-         }
-         //print_r($Sensore);
-         //$Sensore=mostraSensore($nomeAmbiente);
-    }
-    
-function mostraSensore($nomeAmbiente){
-     require 'db.php';
-      $IDambiente= getIDambiente($nomeAmbiente);
-      $sqlA='SELECT m.ID, s.marca, s.tipo, m.valore, m.data, m.ora, s.unitamisura'
-                . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
-                . " WHERE IDambiente=$IDambiente";
-      
-                //$slqB="SELECT marca,tipo,valore,data,ora,misura from monitoraggio WHERE IDambiente=$IDambiente";
-                 if(isset($mysqli)){
-                      $result=$mysqli->query($sqlA);
-                      
-                      }
-                                
-                  if(!isset($result)){
-                     trigger_error('invalid query');
-                    }
-                  if($result->num_rows>0){
-                      $SensoreDato[getLastID()]=0;
-                      $i=0;
-                        while($row=$result->fetch_assoc()){
-                            $SensoreDato[$i]=array($row['marca'], $row['tipo'], $row['unitamisura'], $row['valore'], $row['data'],$row['ora'], $row['ID']);
-                            $i++;
-                            }
-                            if($i<6){
-                                for($j=$i; $j<6; $j++){
-                                 $SensoreDato[$j]=array(0,0,0,0,0,0);
-                                }
-                      }
-                  }else{
-                      for($i=0; $i<6; $i++){
-                          $SensoreDato[$i]=array(0,0,0,0,0,0);
-                      }
-                  }
-                    
-        $mysqli->close();
-         //echo print_r($SensoreDato);
-        return $SensoreDato;
-}
 
 ?>
 <!doctype html>
@@ -264,7 +203,7 @@ function mostraSensore($nomeAmbiente){
                                 <?php $nomeAmbiente='casa';
                                       $Sensore=mostraSensore($nomeAmbiente);
                                  ?>
-                                <p class="category">Here is a subtitle for this table</p>
+                                <p class="category">Dati del monitoraggio di casa</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -280,72 +219,96 @@ function mostraSensore($nomeAmbiente){
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><?= $Sensore[0][0] ?></td>
-                                        	<td><?= $Sensore[0][1] ?></td>
-                                        	<td><?= $Sensore[0][2] ?></td>
-                                        	<td><?= $Sensore[0][3] ?></td>
-                                                <td><?= $Sensore[0][4] ?></td>
-                                                <td><?= $Sensore[0][5] ?> </td>
+                                        	<td><?= $Sensore[ZERO][ZERO] ?></td>
+                                        	<td><?= $Sensore[ZERO][UNO] ?></td>
+                                        	<td><?= $Sensore[ZERO][DUE] ?></td>
+                                        	<td><?= $Sensore[ZERO][TRE] ?></td>
+                                                <td><?= $Sensore[ZERO][QUATTRO] ?></td>
+                                                <td><?= $Sensore[ZERO][CINQUE] ?> </td>
                                                 <td><form method="post">
                                                      <input type="submit" name="submit1"  value="Remove"/>
-                                                     <?php if(isset($Sensore[0][6])){
-                                                            removeSensore1($Sensore[0][6], 'submit1');    
+                                                     <?php if(isset($Sensore[ZERO][SEI])){
+                                                            removeSensore1($Sensore[ZERO][SEI], 'submit1');    
                                                      }?>
                                                     </form>
                                                 </td>
                                                 </tr>
                                         <tr>
-                                        	<td><?= $Sensore[1][0] ?></td>
-                                        	<td><?= $Sensore[1][1] ?></td>
-                                        	<td><?= $Sensore[1][2] ?></td>
-                                        	<td><?= $Sensore[1][3] ?></td>
-                                        	<td><?= $Sensore[1][4] ?></td>
-                                                <td><?= $Sensore[1][5] ?></td>
+                                        	<td><?= $Sensore[UNO][ZERO] ?></td>
+                                        	<td><?= $Sensore[UNO][UNO] ?></td>
+                                        	<td><?= $Sensore[UNO][DUE] ?></td>
+                                        	<td><?= $Sensore[UNO][TRE] ?></td>
+                                        	<td><?= $Sensore[UNO][QUATTRO] ?></td>
+                                                <td><?= $Sensore[UNO][CINQUE] ?></td>
                                                 <td>
                                                     <form method="post">
                                                      <input type="submit" name="submit2" value="Remove"/>
-                                                     <?php if(isset($Sensore[1][6])){
-                                                          removeSensore1($Sensore[1][6], 'submit2');     
+                                                     <?php if(isset($Sensore[UNO][SEI])){
+                                                          removeSensore1($Sensore[UNO][SEI], 'submit2');     
                                                      }?>
                                                     </form>
                                                 </td>
                                         </tr>
                                         <tr>
-                                        	<td><?= $Sensore[2][0] ?></td>
-                                        	<td><?= $Sensore[2][1] ?></td>
-                                        	<td><?= $Sensore[2][2] ?></td>
-                                        	<td><?= $Sensore[2][3] ?></td>
-                                        	<td><?= $Sensore[2][4] ?></td>
-                                                <td><?= $Sensore[2][5] ?></td>
+                                        	<td><?= $Sensore[DUE][ZERO] ?></td>
+                                        	<td><?= $Sensore[DUE][UNO] ?></td>
+                                        	<td><?= $Sensore[DUE][DUE] ?></td>
+                                        	<td><?= $Sensore[DUE][TRE] ?></td>
+                                        	<td><?= $Sensore[DUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore[DUE][CINQUE] ?></td>
                                                 <td>
                                                      <form method="post">
                                                      <input type="submit" name="submit3" value="Remove"/>
-                                                     <?php if(isset($Sensore[2][6])){
-                                                          removeSensore1($Sensore[2][6], 'submit3');
+                                                     <?php if(isset($Sensore[DUE][SEI])){
+                                                          removeSensore1($Sensore[DUE][SEI], 'submit3');
                                                      }?>
                                                     </form>
                                                 </td>
                                         </tr>
                                         <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
+                                        	<td><?= $Sensore[TRE][ZERO] ?></td>
+                                        	<td><?= $Sensore[TRE][UNO] ?></td>
+                                        	<td><?= $Sensore[TRE][DUE] ?></td>
+                                        	<td><?= $Sensore[TRE][TRE] ?></td>
+                                        	<td><?= $Sensore[TRE][QUATTRO] ?></td>
+                                                <td><?= $Sensore[TRE][CINQUE] ?></td>
+                                                <td> <form method="post">
+                                                     <input type="submit" name="submit4" value="Remove"/>
+                                                     <?php if(isset($Sensore[TRE][SEI])){
+                                                          removeSensore1($Sensore[TRE][SEI], 'submit4');
+                                                     }?>
+                                                    </form>
+                                                </td>
                                         </tr>
                                         <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
+                                                <td><?= $Sensore[QUATTRO][ZERO] ?></td>
+                                        	<td><?= $Sensore[QUATTRO][UNO] ?></td>
+                                        	<td><?= $Sensore[QUATTRO][DUE] ?></td>
+                                        	<td><?= $Sensore[QUATTRO][TRE] ?></td>
+                                        	<td><?= $Sensore[QUATTRO][QUATTRO] ?></td>
+                                                <td><?= $Sensore[QUATTRO][CINQUE] ?></td>
+                                                <td> <form method="post">
+                                                     <input type="submit" name="submit5" value="Remove"/>
+                                                     <?php if(isset($Sensore[QUATTRO][SEI])){
+                                                          removeSensore1($Sensore[QUATTRO][SEI], 'submit5');
+                                                     }?>
+                                                    </form>
+                                                </td>
+                                            
                                         </tr>
                                         <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
+                                                <td><?= $Sensore[CINQUE][ZERO] ?></td>
+                                        	<td><?= $Sensore[CINQUE][UNO] ?></td>
+                                        	<td><?= $Sensore[CINQUE][DUE] ?></td>
+                                        	<td><?= $Sensore[CINQUE][TRE] ?></td>
+                                        	<td><?= $Sensore[CINQUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore[CINQUE][CINQUE] ?></td>
+                                                <td> <form method="post">
+                                                     <input type="submit" name="submit6" value="Remove"/>
+                                                     <?php if(isset($Sensore[CINQUE][SEI])){
+                                                          removeSensore1($Sensore[CINQUE][SEI], 'submit6');
+                                                     }?>
+                                                    </form>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -358,60 +321,107 @@ function mostraSensore($nomeAmbiente){
                     <div class="col-md-12">
                         <div class="card card-plain">
                             <div class="header">
-                                <h4 class="title">Table on Plain Background</h4>
-                                <p class="category">Here is a subtitle for this table</p>
+                                <h4 class="title">Ufficio</h4>
+                                <?php $nomeAmbiente2='ufficio';
+                                      $Sensore1=mostraSensore($nomeAmbiente2);
+                                 ?>
+                                <p class="category">Dati del monitoraggio dell'Ufficio</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover">
                                     <thead>
-                                        <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th>Salary</th>
-                                    	<th>Country</th>
-                                    	<th>City</th>
+                                        <th>Marca</th>
+                                    	<th>Tipo</th>
+                                    	<th>Misura</th>
+                                    	<th>Valore</th>
+                                    	<th>Data</th>
+                                        <th>Ora</th>
+                                        <th>Remove Sensore</th>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td>1</td>
-                                        	<td>Dakota Rice</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
+                                        	<td><?= $Sensore1[ZERO][ZERO] ?></td>
+                                        	<td><?= $Sensore1[ZERO][UNO] ?></td>
+                                        	<td><?= $Sensore1[ZERO][DUE] ?></td>
+                                        	<td><?= $Sensore1[ZERO][TRE] ?></td>
+                                                <td><?= $Sensore1[ZERO][QUATTRO] ?></td>
+                                                <td><?= $Sensore1[ZERO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit11"  value="Remove"/>
+                                                     <?php if(isset($Sensore1[ZERO][SEI])){
+                                                            removeSensore1($Sensore1[ZERO][SEI], 'submit11');    
+                                                     }?>
+                                                    </form>
                                         </tr>
                                         <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
+                                        	<td><?= $Sensore1[UNO][ZERO] ?></td>
+                                        	<td><?= $Sensore1[UNO][UNO] ?></td>
+                                        	<td><?= $Sensore1[UNO][DUE] ?></td>
+                                        	<td><?= $Sensore1[UNO][TRE] ?></td>
+                                                <td><?= $Sensore1[UNO][QUATTRO] ?></td>
+                                                <td><?= $Sensore1[UNO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit12"  value="Remove"/>
+                                                     <?php if(isset($Sensore1[UNO][SEI])){
+                                                            removeSensore1($Sensore1[UNO][SEI], 'submit12');    
+                                                     }?>
+                                                    </form>
                                         </tr>
                                         <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
+                                        	<td><?= $Sensore1[DUE][ZERO] ?></td>
+                                        	<td><?= $Sensore1[DUE][UNO] ?></td>
+                                        	<td><?= $Sensore1[DUE][DUE] ?></td>
+                                        	<td><?= $Sensore1[DUE][TRE] ?></td>
+                                                <td><?= $Sensore1[DUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore1[DUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit13"  value="Remove"/>
+                                                     <?php if(isset($Sensore1[DUE][SEI])){
+                                                            removeSensore1($Sensore1[DUE][SEI], 'submit13');    
+                                                     }?>
+                                                    </form>
                                         </tr>
                                         <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
+                                        	<td><?= $Sensore1[TRE][ZERO] ?></td>
+                                        	<td><?= $Sensore1[TRE][UNO] ?></td>
+                                        	<td><?= $Sensore1[TRE][DUE] ?></td>
+                                        	<td><?= $Sensore1[TRE][TRE] ?></td>
+                                                <td><?= $Sensore1[TRE][QUATTRO] ?></td>
+                                                <td><?= $Sensore1[TRE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit14"  value="Remove"/>
+                                                     <?php if(isset($Sensore1[TRE][SEI])){
+                                                            removeSensore1($Sensore1[TRE][SEI], 'submit14');    
+                                                     }?>
+                                                    </form>
                                         </tr>
                                         <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
+                                        	<td><?= $Sensore1[QUATTRO][ZERO] ?></td>
+                                        	<td><?= $Sensore1[QUATTRO][UNO] ?></td>
+                                        	<td><?= $Sensore1[QUATTRO][DUE] ?></td>
+                                        	<td><?= $Sensore1[QUATTRO][TRE] ?></td>
+                                                <td><?= $Sensore1[QUATTRO][QUATTRO] ?></td>
+                                                <td><?= $Sensore1[QUATTRO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit15"  value="Remove"/>
+                                                     <?php if(isset($Sensore1[QUATTRO][SEI])){
+                                                            removeSensore1($Sensore1[QUATTRO][SEI], 'submit15');    
+                                                     }?>
+                                                    </form>
                                         </tr>
                                         <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
+                                        	<td><?= $Sensore1[CINQUE][ZERO] ?></td>
+                                        	<td><?= $Sensore1[CINQUE][UNO] ?></td>
+                                        	<td><?= $Sensore1[CINQUE][DUE] ?></td>
+                                        	<td><?= $Sensore1[CINQUE][TRE] ?></td>
+                                                <td><?= $Sensore1[CINQUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore1[CINQUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit16"  value="Remove"/>
+                                                     <?php if(isset($Sensore1[CINQUE][SEI])){
+                                                            removeSensore1($Sensore1[CINQUE][SEI], 'submit16');    
+                                                     }?>
+                                                    </form>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -419,6 +429,348 @@ function mostraSensore($nomeAmbiente){
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    
+                     <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">Serra</h4>
+                                <?php $nomeAmbiente3='serra';
+                                      $Sensore2=mostraSensore($nomeAmbiente3);
+                                 ?>
+                                <p class="category">Dati del monitoraggio della Serra</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>Marca</th>
+                                    	<th>Tipo</th>
+                                    	<th>Misura</th>
+                                    	<th>Valore</th>
+                                    	<th>Data</th>
+                                        <th>Ora</th>
+                                        <th>Remove Sensore</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td><?= $Sensore2[ZERO][ZERO] ?></td>
+                                        	<td><?= $Sensore2[ZERO][UNO] ?></td>
+                                        	<td><?= $Sensore2[ZERO][DUE] ?></td>
+                                        	<td><?= $Sensore2[ZERO][TRE] ?></td>
+                                                <td><?= $Sensore2[ZERO][QUATTRO] ?></td>
+                                                <td><?= $Sensore2[ZERO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit21"  value="Remove"/>
+                                                     <?php if(isset($Sensore2[ZERO][SEI])){
+                                                            removeSensore1($Sensore2[ZERO][SEI], 'submit21');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore2[UNO][ZERO] ?></td>
+                                        	<td><?= $Sensore2[UNO][UNO] ?></td>
+                                        	<td><?= $Sensore2[UNO][DUE] ?></td>
+                                        	<td><?= $Sensore2[UNO][TRE] ?></td>
+                                                <td><?= $Sensore2[UNO][QUATTRO] ?></td>
+                                                <td><?= $Sensore2[UNO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit22"  value="Remove"/>
+                                                     <?php if(isset($Sensore2[UNO][SEI])){
+                                                            removeSensore1($Sensore2[UNO][SEI], 'submit22');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore2[DUE][ZERO] ?></td>
+                                        	<td><?= $Sensore2[DUE][UNO] ?></td>
+                                        	<td><?= $Sensore2[DUE][DUE] ?></td>
+                                        	<td><?= $Sensore2[DUE][TRE] ?></td>
+                                                <td><?= $Sensore2[DUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore2[DUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit23"  value="Remove"/>
+                                                     <?php if(isset($Sensore2[DUE][SEI])){
+                                                            removeSensore1($Sensore2[DUE][SEI], 'submit23');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore2[TRE][ZERO] ?></td>
+                                        	<td><?= $Sensore2[TRE][UNO] ?></td>
+                                        	<td><?= $Sensore2[TRE][DUE] ?></td>
+                                        	<td><?= $Sensore2[TRE][TRE] ?></td>
+                                                <td><?= $Sensore2[TRE][QUATTRO] ?></td>
+                                                <td><?= $Sensore2[TRE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit24"  value="Remove"/>
+                                                     <?php if(isset($Sensore2[TRE][SEI])){
+                                                            removeSensore1($Sensore2[TRE][SEI], 'submit24');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore2[QUATTRO][ZERO] ?></td>
+                                        	<td><?= $Sensore2[QUATTRO][UNO] ?></td>
+                                        	<td><?= $Sensore2[QUATTRO][DUE] ?></td>
+                                        	<td><?= $Sensore2[QUATTRO][TRE] ?></td>
+                                                <td><?= $Sensore2[QUATTRO][QUATTRO] ?></td>
+                                                <td><?= $Sensore2[QUATTRO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit25"  value="Remove"/>
+                                                     <?php if(isset($Sensore2[QUATTRO][SEI])){
+                                                            removeSensore1($Sensore2[QUATTRO][SEI], 'submit25');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore2[CINQUE][ZERO] ?></td>
+                                        	<td><?= $Sensore2[CINQUE][UNO] ?></td>
+                                        	<td><?= $Sensore2[CINQUE][DUE] ?></td>
+                                        	<td><?= $Sensore2[CINQUE][TRE] ?></td>
+                                                <td><?= $Sensore2[CINQUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore2[CINQUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit26"  value="Remove"/>
+                                                     <?php if(isset($Sensore2[CINQUE][SEI])){
+                                                            removeSensore1($Sensore2[CINQUE][SEI], 'submit26');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">Parcheggio</h4>
+                                <?php $nomeAmbiente4='parcheggio';
+                                      $Sensore3=mostraSensore($nomeAmbiente4);
+                                 ?>
+                                <p class="category">Dati del monitoraggio del Parcheggio</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>Marca</th>
+                                    	<th>Tipo</th>
+                                    	<th>Misura</th>
+                                    	<th>Valore</th>
+                                    	<th>Data</th>
+                                        <th>Ora</th>
+                                        <th>Remove Sensore</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td><?= $Sensore3[ZERO][ZERO] ?></td>
+                                        	<td><?= $Sensore3[ZERO][UNO] ?></td>
+                                        	<td><?= $Sensore3[ZERO][DUE] ?></td>
+                                        	<td><?= $Sensore3[ZERO][TRE] ?></td>
+                                                <td><?= $Sensore3[ZERO][QUATTRO] ?></td>
+                                                <td><?= $Sensore3[ZERO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit31"  value="Remove"/>
+                                                     <?php if(isset($Sensore3[ZERO][SEI])){
+                                                            removeSensore1($Sensore3[ZERO][SEI], 'submit31');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore3[UNO][ZERO] ?></td>
+                                        	<td><?= $Sensore3[UNO][UNO] ?></td>
+                                        	<td><?= $Sensore3[UNO][DUE] ?></td>
+                                        	<td><?= $Sensore3[UNO][TRE] ?></td>
+                                                <td><?= $Sensore3[UNO][QUATTRO] ?></td>
+                                                <td><?= $Sensore3[UNO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit32"  value="Remove"/>
+                                                     <?php if(isset($Sensore3[UNO][SEI])){
+                                                            removeSensore1($Sensore3[UNO][SEI], 'submit32');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore3[DUE][ZERO] ?></td>
+                                        	<td><?= $Sensore3[DUE][UNO] ?></td>
+                                        	<td><?= $Sensore3[DUE][DUE] ?></td>
+                                        	<td><?= $Sensore3[DUE][TRE] ?></td>
+                                                <td><?= $Sensore3[DUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore3[DUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit33"  value="Remove"/>
+                                                     <?php if(isset($Sensore3[DUE][SEI])){
+                                                            removeSensore1($Sensore3[DUE][SEI], 'submit33');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore3[TRE][ZERO] ?></td>
+                                        	<td><?= $Sensore3[TRE][UNO] ?></td>
+                                        	<td><?= $Sensore3[TRE][DUE] ?></td>
+                                        	<td><?= $Sensore3[TRE][TRE] ?></td>
+                                                <td><?= $Sensore3[TRE][QUATTRO] ?></td>
+                                                <td><?= $Sensore3[TRE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit34"  value="Remove"/>
+                                                     <?php if(isset($Sensore3[TRE][SEI])){
+                                                            removeSensore1($Sensore3[TRE][SEI], 'submit34');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore3[QUATTRO][ZERO] ?></td>
+                                        	<td><?= $Sensore3[QUATTRO][UNO] ?></td>
+                                        	<td><?= $Sensore3[QUATTRO][DUE] ?></td>
+                                        	<td><?= $Sensore3[QUATTRO][TRE] ?></td>
+                                                <td><?= $Sensore3[QUATTRO][QUATTRO] ?></td>
+                                                <td><?= $Sensore3[QUATTRO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit35"  value="Remove"/>
+                                                     <?php if(isset($Sensore3[QUATTRO][SEI])){
+                                                            removeSensore1($Sensore3[QUATTRO][SEI], 'submit35');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore3[CINQUE][ZERO] ?></td>
+                                        	<td><?= $Sensore3[CINQUE][UNO] ?></td>
+                                        	<td><?= $Sensore3[CINQUE][DUE] ?></td>
+                                        	<td><?= $Sensore3[CINQUE][TRE] ?></td>
+                                                <td><?= $Sensore3[CINQUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore3[CINQUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit36"  value="Remove"/>
+                                                     <?php if(isset($Sensore3[CINQUE][SEI])){
+                                                            removeSensore1($Sensore3[CINQUE][SEI], 'submit36');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">Banca</h4>
+                                <?php $nomeAmbiente5='banca';
+                                      $Sensore4=mostraSensore($nomeAmbiente5);
+                                 ?>
+                                <p class="category">Dati del monitoraggio della Banca</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>Marca</th>
+                                    	<th>Tipo</th>
+                                    	<th>Misura</th>
+                                    	<th>Valore</th>
+                                    	<th>Data</th>
+                                        <th>Ora</th>
+                                        <th>Remove Sensore</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td><?= $Sensore4[ZERO][ZERO] ?></td>
+                                        	<td><?= $Sensore4[ZERO][UNO] ?></td>
+                                        	<td><?= $Sensore4[ZERO][DUE] ?></td>
+                                        	<td><?= $Sensore4[ZERO][TRE] ?></td>
+                                                <td><?= $Sensore4[ZERO][QUATTRO] ?></td>
+                                                <td><?= $Sensore4[ZERO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit41"  value="Remove"/>
+                                                     <?php if(isset($Sensore4[ZERO][SEI])){
+                                                            removeSensore1($Sensore4[ZERO][SEI], 'submit41');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore4[UNO][ZERO] ?></td>
+                                        	<td><?= $Sensore4[UNO][UNO] ?></td>
+                                        	<td><?= $Sensore4[UNO][DUE] ?></td>
+                                        	<td><?= $Sensore4[UNO][TRE] ?></td>
+                                                <td><?= $Sensore4[UNO][QUATTRO] ?></td>
+                                                <td><?= $Sensore4[UNO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit42"  value="Remove"/>
+                                                     <?php if(isset($Sensore4[UNO][SEI])){
+                                                            removeSensore1($Sensore4[UNO][SEI], 'submit42');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore4[DUE][ZERO] ?></td>
+                                        	<td><?= $Sensore4[DUE][UNO] ?></td>
+                                        	<td><?= $Sensore4[DUE][DUE] ?></td>
+                                        	<td><?= $Sensore4[DUE][TRE] ?></td>
+                                                <td><?= $Sensore4[DUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore4[DUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit43"  value="Remove"/>
+                                                     <?php if(isset($Sensore4[DUE][SEI])){
+                                                            removeSensore1($Sensore4[DUE][SEI], 'submit43');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore4[TRE][ZERO] ?></td>
+                                        	<td><?= $Sensore4[TRE][UNO] ?></td>
+                                        	<td><?= $Sensore4[TRE][DUE] ?></td>
+                                        	<td><?= $Sensore4[TRE][TRE] ?></td>
+                                                <td><?= $Sensore4[TRE][QUATTRO] ?></td>
+                                                <td><?= $Sensore4[TRE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit44"  value="Remove"/>
+                                                     <?php if(isset($Sensore4[TRE][SEI])){
+                                                            removeSensore1($Sensore4[TRE][SEI], 'submit44');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore4[QUATTRO][ZERO] ?></td>
+                                        	<td><?= $Sensore4[QUATTRO][UNO] ?></td>
+                                        	<td><?= $Sensore4[QUATTRO][DUE] ?></td>
+                                        	<td><?= $Sensore4[QUATTRO][TRE] ?></td>
+                                                <td><?= $Sensore4[QUATTRO][QUATTRO] ?></td>
+                                                <td><?= $Sensore4[QUATTRO][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit45"  value="Remove"/>
+                                                     <?php if(isset($Sensore4[QUATTRO][SEI])){
+                                                            removeSensore1($Sensore4[QUATTRO][SEI], 'submit45');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                        <tr>
+                                        	<td><?= $Sensore4[CINQUE][ZERO] ?></td>
+                                        	<td><?= $Sensore4[CINQUE][UNO] ?></td>
+                                        	<td><?= $Sensore4[CINQUE][DUE] ?></td>
+                                        	<td><?= $Sensore4[CINQUE][TRE] ?></td>
+                                                <td><?= $Sensore4[CINQUE][QUATTRO] ?></td>
+                                                <td><?= $Sensore4[CINQUE][CINQUE] ?> </td>
+                                                <td><form method="post">
+                                                     <input type="submit" name="submit46"  value="Remove"/>
+                                                     <?php if(isset($Sensore4[CINQUE][SEI])){
+                                                            removeSensore1($Sensore4[CINQUE][SEI], 'submit46');    
+                                                     }?>
+                                                    </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
 
 
         <footer class="footer">

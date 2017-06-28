@@ -193,7 +193,7 @@ function getPOSTcap(){
         require 'db.php';
         $SQL = "UPDATE users SET NAZIENDA='$nomeAzienda', Sede='$sede', Indirizzo='$indirizzo', PIVA='$PIVA', CODFIS='$codiceFiscale', CAP='$cap', telefono='$telefono', "
                 . " id=$ID, first_name='$nome', last_name='$cognome' WHERE email='$email'";
-        $mysqli->query($SQL);
+        $result=$mysqli->query($SQL);
         $mysqli->close();
        
     }
@@ -212,6 +212,151 @@ function getPOSTcap(){
             }
                return $lastID;  
         }
+        
+        function getIDambiente($nomeAmbiente){
+    require 'db.php';
+    $sql="SELECT ID FROM ambiente WHERE nome='$nomeAmbiente'";
+    $result=$mysqli->query($sql);
+    if($result->num_rows>0){
+        while($row=$result->fetch_assoc()){
+            $IDambiente=$row['ID'];
+        }
+    }
+    $mysqli->close();
+    return $IDambiente;
+}
+
+
+function removeSensore1($IDriga, $submit){
+     require 'db.php';
+     if(isset($_POST[$submit])){
+           $SQL="DELETE FROM monitora WHERE ID=$IDriga";
+           $result=$mysqli->query($SQL);
+           var_dump($result);
+              echo refresh();
+         }
+         //print_r($Sensore);
+         //$Sensore=mostraSensore($nomeAmbiente);
+    }
+    
+function mostraSensore($nomeAmbiente){
+     require 'db.php';
+      $IDambiente= getIDambiente($nomeAmbiente);
+      //echo "ID ambiente:".$IDambiente;
+      $sqlA='SELECT m.ID, s.marca, s.tipo, m.valore, m.data, m.ora, s.unitamisura'
+                . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
+                . " WHERE IDambiente=$IDambiente";
+      
+                //$slqB="SELECT marca,tipo,valore,data,ora,misura from monitoraggio WHERE IDambiente=$IDambiente";
+                 if(isset($mysqli)){
+                      $result=$mysqli->query($sqlA);
+                      
+                      }
+                                
+                  if(!isset($result)){
+                     trigger_error('invalid query');
+                    }
+                  if($result->num_rows>0){
+                      $SensoreDato[getLastID()]=0;
+                      $i=0;
+                        while($row=$result->fetch_assoc()){
+                            $SensoreDato[$i]=array($row['marca'], $row['tipo'], $row['unitamisura'], $row['valore'], $row['data'],$row['ora'], $row['ID']);
+                            $i++;
+                            }
+                            if($i<6){
+                                for($j=$i; $j<6; $j++){
+                                 $SensoreDato[$j]=array(0,0,0,0,0,0);
+                                }
+                      }
+                  }else{
+                      for($i=0; $i<6; $i++){
+                          $SensoreDato[$i]=array(0,0,0,0,0,0);
+                      }
+                  }
+                    
+        $mysqli->close();
+         //echo print_r($SensoreDato);
+        return $SensoreDato;
+}
+
+    function get_options(){
+        require 'db.php';
+          
+             $sqlA='SELECT * FROM ambiente';
+             $resultA=$mysqli->query($sqlA);
+    
+             if($resultA->num_rows>0){
+               while($row=$resultA->fetch_assoc()){
+               echo '<option value="',$row['NOME'],'">',$row['NOME'],'</option>';
+                      }
+               }else {
+                  echo '0 results';
+                   }
+                   
+    }
+    
+    function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
+        require 'db.php';
+        
+        $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
+        $result=$mysqli->query($sql);
+        if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+                $IDambiente=$row['ID'];
+                
+            }
+             $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore) VALUES($a,$IDambiente,$IDsensore)";
+             $result=$mysqli->query($sql1);
+        }
+    }
+    
+    
+       
+    
+    //echo getLastID();
+    
+    function getPOSTambienti1 (){
+       $ambiente= filter_input(INPUT_POST, 'ambienti1');
+       return $ambiente;
+}
+
+function getPOSTambienti2(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti2');
+    return $ambiente;
+}
+
+function getPOSTambienti3(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti3');
+    return $ambiente;
+}
+function getPOSTambienti4(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti4');
+    return $ambiente;
+}
+function getPOSTambienti5(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti5');
+    return $ambiente;
+}
+function getPOSTambienti6(){
+    $ambiente=filter_input(INPUT_POST, 'ambienti6');
+    return $ambiente;
+}
+   
+function selectSensore(){
+  require 'db.php';
+    $sqlS='SELECT * FROM sensore';
+    if(isset($mysqli)){
+         $resultS=$mysqli->query($sqlS);
+    }
+    if($resultS->num_rows>0){
+         while($row=$resultS->fetch_assoc()){
+           $Sensore[$row['ID']]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
+         //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
+         }
+      }
+      return $Sensore;
+  
+}
                                                                 
     $mysqli->close();
 
