@@ -26,88 +26,8 @@ else {
     $active = $_SESSION['active'];
 }
 
-function selectSensore(){
-  require 'db.php';
-    $sqlS='SELECT * FROM sensore';
-    if(isset($mysqli)){
-         $resultS=$mysqli->query($sqlS);
-    }
-    if($resultS->num_rows>0){
-         while($row=$resultS->fetch_assoc()){
-           $Sensore[$row['ID']]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
-         //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
-         }
-      }
-      return $Sensore;
-  
-}
 $Sensori= selectSensore();
 
-
-    function get_options(){
-        require 'db.php';
-          
-             $sqlA='SELECT * FROM ambiente';
-             $resultA=$mysqli->query($sqlA);
-    
-             if($resultA->num_rows>0){
-               while($row=$resultA->fetch_assoc()){
-                   $str='<option value=' .$row['Nome']. '>'. $row['NOME'].'</option>';
-                    echo $str;
-                      }
-               }else {
-                  echo '0 results';
-                   }
-                   
-    }
-    
-    function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
-        require 'db.php';
-        
-        $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                $IDambiente=$row['ID'];
-                
-            }
-             $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore) VALUES($a,$IDambiente,$IDsensore)";
-             $result=$mysqli->query($sql1);
-        }
-    }
-    
-    
-       
-    
-    //echo getLastID();
-    
-    function getPOSTambienti1 (){
-       $ambiente= filter_input(INPUT_POST, 'ambienti1');
-       return $ambiente;
-}
-
-function getPOSTambienti2(){
-    $ambiente=filter_input(INPUT_POST, 'ambienti2');
-    return $ambiente;
-}
-
-function getPOSTambienti3(){
-    $ambiente=filter_input(INPUT_POST, 'ambienti3');
-    return $ambiente;
-}
-function getPOSTambienti4(){
-    $ambiente=filter_input(INPUT_POST, 'ambienti4');
-    return $ambiente;
-}
-function getPOSTambienti5(){
-    $ambiente=filter_input(INPUT_POST, 'ambienti5');
-    return $ambiente;
-}
-function getPOSTambienti6(){
-    $ambiente=filter_input(INPUT_POST, 'ambienti6');
-    return $ambiente;
-}
-    
 ?>
 <!doctype html>
 <html lang="en">
@@ -307,7 +227,11 @@ function getPOSTambienti6(){
                                                     </select>
                                                     <?php $nomeAmbiente1= getPOSTambienti1();
                                                     $incr=getLastID();
-                                                    echo insert_into_monitora( $Sensori[UNO][ZERO] , $nomeAmbiente1, ++$incr);
+                                                    $rand=rand(5,35);
+                                                    $valore=(string)$rand;
+                                                    $data='20/06/2017';
+                                                    $ora='18:00';
+                                                    echo insert_into_monitora( $Sensori[UNO][ZERO] , $nomeAmbiente1, ++$incr, $valore, $data, $ora);
                                                      ?>
                                                     </form>
                                                 </tr>
@@ -323,7 +247,11 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente2= getPOSTambienti2();
                                                     $incr2=getLastID();
-                                                    echo insert_into_monitora( $Sensori[DUE][ZERO] , $nomeAmbiente2, ++$incr2);?>
+                                                    $rand1=rand(0,100);
+                                                    $valore1=(string)$rand1;
+                                                    $data1='21/05/2017';
+                                                    $ora1="15:41";
+                                                    echo insert_into_monitora( $Sensori[DUE][ZERO] , $nomeAmbiente2, ++$incr2, $valore1, $data1, $ora1);?>
                                                          
                                                     </form>
                                                 </td>
@@ -340,7 +268,11 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente3= getPOSTambienti3();
                                                          $incr3=getLastID();
-                                                    echo insert_into_monitora( $Sensori[TRE][ZERO] , $nomeAmbiente3,++$incr3);?>     
+                                                         $rand2=random(2.0, 8.5);
+                                                         $valore2=(string)$rand2;
+                                                         $data2='13/06/2017';
+                                                         $ora2='14:45';
+                                                    echo insert_into_monitora( $Sensori[TRE][ZERO] , $nomeAmbiente3,++$incr3, $valore2, $data2, $ora2);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -356,7 +288,18 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente4= getPOSTambienti4();
                                                          $incr4=getLastID();
-                                                    echo insert_into_monitora( $Sensori[QUATTRO][ZERO] , $nomeAmbiente4,++$incr4);?>     
+                                                         $rand3=rand(0,1);
+                                                         switch($rand3){
+                                                             case 0:
+                                                                 $valore3='0';
+                                                                 break;
+                                                             case 1:
+                                                                 $valore3='1';
+                                                                 break;
+                                                         }
+                                                         $data3='17/02/2017';
+                                                         $ora3='10:52';
+                                                    echo insert_into_monitora( $Sensori[QUATTRO][ZERO] , $nomeAmbiente4,++$incr4, $valore3, $data3, $ora3);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -372,7 +315,18 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente5= getPOSTambienti5();
                                                          $incr5=getLastID();
-                                                    echo insert_into_monitora( $Sensori[CINQUE][ZERO] , $nomeAmbiente5,++$incr5);?>     
+                                                          $rand4=rand(0,1);
+                                                         switch($rand4){
+                                                             case 0:
+                                                                 $valore4='movimento';
+                                                                 break;
+                                                             case 1:
+                                                                 $valore4='spento';
+                                                                 break;
+                                                         }
+                                                         $data4='18/03/2017';
+                                                         $ora4='12:01';
+                                                    echo insert_into_monitora( $Sensori[CINQUE][ZERO] , $nomeAmbiente5,++$incr5, $valore4, $data4, $ora4);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -388,7 +342,11 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente6= getPOSTambienti6();
                                                          $incr6=getLastID();
-                                                    echo insert_into_monitora( $Sensori[SEI][ZERO] , $nomeAmbiente6,++$incr6);?>     
+                                                         $rand5=rand(200, 400);
+                                                         $valore5=(string)$rand5;
+                                                         $data5='10/12/2016';
+                                                         $ora5='10:10';
+                                                    echo insert_into_monitora( $Sensori[SEI][ZERO] , $nomeAmbiente6,++$incr6, $valore5, $data5, $ora5);?>     
                                                     </form>
                                                 </td>
                                         </tr>
@@ -402,7 +360,7 @@ function getPOSTambienti6(){
         <footer class="footer">
             <div class="container-fluid">
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">IoT Solutions</a>, made with passion
+                    &copy; <script>document.write(new Date().getFullYear());</script> <a href="http://www.creative-tim.com">IoT Solutions</a>, made with passion
                 </p>
             </div>
         </footer>
@@ -417,39 +375,14 @@ function getPOSTambienti6(){
     <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
-	<!--  Checkbox, Radio & Switch Plugins -->
-	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
-
-	<!--  Charts Plugin -->
-	<script src="assets/js/chartist.min.js"></script>
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js"></script>
 
-	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>
-
-	<script type="text/javascript">
-    	$(document).ready(function(){
-
-        	demo.initChartist();
-
-        	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
-
-            },{
-                type: 'info',
-                timer: 4000
-            });
-
-    	});
-	</script>
+	
 
 </html>

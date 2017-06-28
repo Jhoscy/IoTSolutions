@@ -213,6 +213,18 @@ function getPOSTcap(){
                return $lastID;  
         }
         
+    function getUserID($email){
+        require 'db.php';
+        $sql="SELECT ID FROM users WHERE email='$email'";
+        $result=$mysqli->query($sql);
+        if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+            $IDutente=$row['ID'];
+            }
+            return $IDutente;
+        }
+    }
+        
         function getIDambiente($nomeAmbiente){
     require 'db.php';
     $sql="SELECT ID FROM ambiente WHERE nome='$nomeAmbiente'";
@@ -232,7 +244,6 @@ function removeSensore1($IDriga, $submit){
      if(isset($_POST[$submit])){
            $SQL="DELETE FROM monitora WHERE ID=$IDriga";
            $result=$mysqli->query($SQL);
-           var_dump($result);
               echo refresh();
          }
          //print_r($Sensore);
@@ -242,7 +253,6 @@ function removeSensore1($IDriga, $submit){
 function mostraSensore($nomeAmbiente){
      require 'db.php';
       $IDambiente= getIDambiente($nomeAmbiente);
-      //echo "ID ambiente:".$IDambiente;
       $sqlA='SELECT m.ID, s.marca, s.tipo, m.valore, m.data, m.ora, s.unitamisura'
                 . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
                 . " WHERE IDambiente=$IDambiente";
@@ -295,9 +305,8 @@ function mostraSensore($nomeAmbiente){
                    
     }
     
-    function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
+    function insert_into_monitora($IDsensore, $nomeAmbiente, $a, $valore, $data, $ora){
         require 'db.php';
-        
         $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
@@ -305,8 +314,9 @@ function mostraSensore($nomeAmbiente){
                 $IDambiente=$row['ID'];
                 
             }
-             $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore) VALUES($a,$IDambiente,$IDsensore)";
-             $result=$mysqli->query($sql1);
+            //echo "VALORE: ".$valore, " DATA: ".$data, " ORA: ".$ora;
+             $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore, VALORE, DATA, ORA) VALUES($a,$IDambiente,$IDsensore,'$valore','$data','$ora')";
+             $mysqli->query($sql1);
         }
     }
     
@@ -357,6 +367,34 @@ function selectSensore(){
       return $Sensore;
   
 }
+
+function count_decimals($x){
+   return  strlen(substr(strrchr($x+"", "."), 1));
+}
+
+function random($min, $max){
+   $decimals = max(count_decimals($min), count_decimals($max));
+   $factor = pow(10, $decimals);
+   return rand($min*$factor, $max*$factor) / $factor;
+}
+
+ function getDati(){
+        require 'db.php';
+        $sql='SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA '.
+                    'FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID '.
+                    'WHERE IDcliente=3';
+        $result=$mysqli->query($sql);
+        if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+                $str='<tr><td>'. $row['NOME'].  ' </td><td>'.  $row['MARCA'].  ' </td><td>'.  $row['TIPO'].  ' </td><td>'.  $row['VALORE'].  ' </td><td>'. $row['UNITAMISURA'].  ' </td><td>'.  $row['DATA'].  ' </td><td>'.  $row['ORA']. ' </td><tr>';
+                echo $str;
+                
+            }
+            
+        }
+        
+    }
+
                                                                 
     $mysqli->close();
 

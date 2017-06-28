@@ -1,6 +1,7 @@
 <?php
 /* Displays user information and some useful messages */
 require 'db.php';
+require 'customPHP.php';
 session_start();
 
 
@@ -17,25 +18,7 @@ else {
     $email = $_SESSION['email'];
     $active = $_SESSION['active'];
 }
-    
-    function getDati(){
-        require 'db.php';
-        $sql='SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA '.
-                    'FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID '.
-                    'WHERE IDcliente=3';
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                $str='<tr>td>'. $row['NOME'].  ' </td><td>'.  $row['MARCA'].  ' </td><td>'.  $row['TIPO'].  ' </td><td>'.  $row['VALORE'].  ' </td><td>'. $row['UNITAMISURA'].  ' </td><td>'.  $row['DATA'].  ' </td><td><tr>'.  $row['ORA']. ' </td>';
-                echo $str;
-                
-            }
-            
-        }
-        
-    }
-    
-    
+     
 ?>
 <!doctype html>
 <html lang="en">
@@ -136,30 +119,6 @@ else {
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-								<p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
 								<p class="hidden-lg hidden-md">Search</p>
@@ -168,30 +127,21 @@ else {
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
-                                        Dropdown
+                                        Transfer To/Me
                                     <b class="caret"></b>
 				</p>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Scarica Dati</a></li>
+                                <li><a href="#">Email</a></li>
+                                <li><a href="#">Applicazione</a></li>
                               </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="logout.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -225,7 +175,7 @@ else {
                                     </thead>
                                     <tbody>
                                         <?php
-                                          getDati();
+                                          getDati($email);
                                        ?>
                                     </tbody>
                                 </table>
@@ -235,100 +185,10 @@ else {
                     </div>
 
 
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="header">
-                                <h4 class="title">Table on Plain Background</h4>
-                                <p class="category">Here is a subtitle for this table</p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th>Salary</th>
-                                    	<th>Country</th>
-                                    	<th>City</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>1</td>
-                                        	<td>Dakota Rice</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-        <footer class="footer">
+           <footer class="footer">
             <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    &copy; <script>document.write(new Date().getFullYear()</script> <a href="uniba.it">IoT</a>, made with passion
                 </p>
             </div>
         </footer>
@@ -343,39 +203,11 @@ else {
     <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
-	<!--  Checkbox, Radio & Switch Plugins -->
-	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
-
-	<!--  Charts Plugin -->
-	<script src="assets/js/chartist.min.js"></script>
-
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
+    
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js"></script>
 
-	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>
-
-	<script type="text/javascript">
-    	$(document).ready(function(){
-
-        	demo.initChartist();
-
-        	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
-
-            },{
-                type: 'info',
-                timer: 4000
-            });
-
-    	});
-	</script>
 
 </html>
