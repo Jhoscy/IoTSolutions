@@ -301,7 +301,7 @@ function getPOSTambienti6(){
                                         	<td><?= $Sensori[UNO][DUE] ?></td>
                                         	<td><?= $Sensori[UNO][TRE]?></td>
                                                 <td>
-                                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                                                     <select name="ambienti1" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                     </select>
@@ -317,7 +317,7 @@ function getPOSTambienti6(){
                                         	<td><?= $Sensori[DUE][DUE] ?></td>
                                         	<td><?= $Sensori[DUE][TRE] ?></td>
                                                 <td>
-                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                                                     <select name="ambienti2" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
@@ -334,7 +334,7 @@ function getPOSTambienti6(){
                                         	<td><?= $Sensori[TRE][DUE] ?></td>
                                         	<td><?= $Sensori[TRE][TRE] ?></td>
                                                 <td>
-                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                      <form action="<?php echo htmlspecial($_SERVER['PHP_SELF']); ?>" method="POST">
                                                     <select name="ambienti3" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
@@ -350,7 +350,7 @@ function getPOSTambienti6(){
                                         	<td><?= $Sensori[QUATTRO][DUE] ?></td>
                                         	<td><?= $Sensori[QUATTRO][TRE] ?></td>
                                                 <td>
-                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                                                     <select name="ambienti4" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
@@ -366,7 +366,7 @@ function getPOSTambienti6(){
                                         	<td><?= $Sensori[CINQUE][DUE] ?></td>
                                         	<td><?= $Sensori[CINQUE][TRE] ?></td>
                                                 <td>
-                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                                                     <select name="ambienti5" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
@@ -382,7 +382,7 @@ function getPOSTambienti6(){
                                         	<td><?= $Sensori[SEI][DUE] ?></td>
                                         	<td><?= $Sensori[SEI][TRE] ?></td>
                                                 <td>
-                                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                                       <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                                                     <select name="ambienti6" onchange="this.form.submit();">
                                                     <?php echo get_options();?>
                                                    </select>
