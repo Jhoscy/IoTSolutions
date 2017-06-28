@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         
         require 'register.php';
         
+    }else{
+        
     }
 }
 ?>
@@ -107,7 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           </div>
           
           <button type="submit" class="button button-block" name="register" />Register</button>
-          <input type="hidden" name="csrf" value="<?php echo $csrf ?>"
           </form>
 
         </div>  

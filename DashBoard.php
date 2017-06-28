@@ -20,21 +20,14 @@ else {
     
     function getDati(){
         require 'db.php';
-        $sql="SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA ".
-                    "FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID ".
-                    "WHERE IDcliente=3";
+        $sql='SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA '.
+                    'FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID '.
+                    'WHERE IDcliente=3';
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
-                echo ' <tr>';
-                 echo '<td>', $row['NOME'],  ' </td>';
-                echo '<td>',  $row['MARCA'],  ' </td>';
-                echo '<td>',  $row['TIPO'],  ' </td>';
-                 echo '<td>',  $row['VALORE'],  ' </td>';
-                  echo '<td>', $row['UNITAMISURA'],  ' </td>';
-                  echo '<td>',  $row['DATA'],  ' </td>';
-                  echo '<td>',  $row['ORA'],  ' </td>';
-                  echo ' <tr>';
+                $str='<tr>td>'. $row['NOME'].  ' </td><td>'.  $row['MARCA'].  ' </td><td>'.  $row['TIPO'].  ' </td><td>'.  $row['VALORE'].  ' </td><td>'. $row['UNITAMISURA'].  ' </td><td>'.  $row['DATA'].  ' </td><td><tr>'.  $row['ORA']. ' </td>';
+                echo $str;
                 
             }
             

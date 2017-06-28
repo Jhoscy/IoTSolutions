@@ -4,6 +4,13 @@ require 'db.php';
 require 'customPHP.php';
 session_start();
 
+ define('ZERO',0);
+define('UNO',1);
+define('DUE',2);
+define('TRE',3);
+define('QUATTRO',4);
+define('CINQUE',5);
+define('SEI',6);
 
 // Check if user is logged in using the session variable
 if ( $_SESSION['logged_in'] != 1 ) {
@@ -11,7 +18,7 @@ if ( $_SESSION['logged_in'] != 1 ) {
   header('location: error.php');    
 }
 else {
-    
+   
     // Makes it easier to read
     $first_name = $_SESSION['first_name'];
     $last_name = $_SESSION['last_name'];
@@ -45,7 +52,8 @@ $Sensori= selectSensore();
     
              if($resultA->num_rows>0){
                while($row=$resultA->fetch_assoc()){
-               echo '<option value="',$row['NOME'],'">',$row['NOME'],'</option>';
+                   $str='<option value=' .$row['Nome']. '>'. $row['NOME'].'</option>';
+                    echo $str;
                       }
                }else {
                   echo '0 results';
@@ -288,10 +296,10 @@ function getPOSTambienti6(){
                                     <tbody>
                                         <tr> 
                                             
-                                                <td><?= $Sensori[1][0] ?></td>
-                                        	<td><?= $Sensori[1][1] ?></td>
-                                        	<td><?= $Sensori[1][2] ?></td>
-                                        	<td><?= $Sensori[1][3]?></td>
+                                                <td><?= $Sensori[UNO][ZERO] ?></td>
+                                        	<td><?= $Sensori[UNO][UNO] ?></td>
+                                        	<td><?= $Sensori[UNO][DUE] ?></td>
+                                        	<td><?= $Sensori[UNO][TRE]?></td>
                                                 <td>
                                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti1" onchange="this.form.submit();">
@@ -299,15 +307,15 @@ function getPOSTambienti6(){
                                                     </select>
                                                     <?php $nomeAmbiente1= getPOSTambienti1();
                                                     $incr=getLastID();
-                                                    echo insert_into_monitora( $Sensori[1][0] , $nomeAmbiente1, ++$incr);
+                                                    echo insert_into_monitora( $Sensori[UNO][ZERO] , $nomeAmbiente1, ++$incr);
                                                      ?>
                                                     </form>
                                                 </tr>
                                         <tr>
-                                        	<td><?= $Sensori[2][0] ?></td>
-                                        	<td><?= $Sensori[2][1] ?></td>
-                                        	<td><?= $Sensori[2][2] ?></td>
-                                        	<td><?= $Sensori[2][3] ?></td>
+                                        	<td><?= $Sensori[DUE][ZERO] ?></td>
+                                        	<td><?= $Sensori[DUE][UNO] ?></td>
+                                        	<td><?= $Sensori[DUE][DUE] ?></td>
+                                        	<td><?= $Sensori[DUE][TRE] ?></td>
                                                 <td>
                                                      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti2" onchange="this.form.submit();">
@@ -315,16 +323,16 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente2= getPOSTambienti2();
                                                     $incr2=getLastID();
-                                                    echo insert_into_monitora( $Sensori[2][0] , $nomeAmbiente2, ++$incr2);?>
+                                                    echo insert_into_monitora( $Sensori[DUE][ZERO] , $nomeAmbiente2, ++$incr2);?>
                                                          
                                                     </form>
                                                 </td>
                                         </tr>
                                         <tr>
-                                        	<td><?= $Sensori[3][0] ?></td>
-                                        	<td><?= $Sensori[3][1] ?></td>
-                                        	<td><?= $Sensori[3][2] ?></td>
-                                        	<td><?= $Sensori[3][3] ?></td>
+                                        	<td><?= $Sensori[TRE][ZERO] ?></td>
+                                        	<td><?= $Sensori[TRE][UNO] ?></td>
+                                        	<td><?= $Sensori[TRE][DUE] ?></td>
+                                        	<td><?= $Sensori[TRE][TRE] ?></td>
                                                 <td>
                                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti3" onchange="this.form.submit();">
@@ -332,15 +340,15 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente3= getPOSTambienti3();
                                                          $incr3=getLastID();
-                                                    echo insert_into_monitora( $Sensori[3][0] , $nomeAmbiente3,++$incr3);?>     
+                                                    echo insert_into_monitora( $Sensori[TRE][ZERO] , $nomeAmbiente3,++$incr3);?>     
                                                     </form>
                                                 </td>
                                         </tr>
                                         <tr>
-                                        	<td><?= $Sensori[4][0] ?></td>
-                                        	<td><?= $Sensori[4][1] ?></td>
-                                        	<td><?= $Sensori[4][2] ?></td>
-                                        	<td><?= $Sensori[4][3] ?></td>
+                                        	<td><?= $Sensori[QUATTRO][ZERO] ?></td>
+                                        	<td><?= $Sensori[QUATTRO][UNO] ?></td>
+                                        	<td><?= $Sensori[QUATTRO][DUE] ?></td>
+                                        	<td><?= $Sensori[QUATTRO][TRE] ?></td>
                                                 <td>
                                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti4" onchange="this.form.submit();">
@@ -348,15 +356,15 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente4= getPOSTambienti4();
                                                          $incr4=getLastID();
-                                                    echo insert_into_monitora( $Sensori[4][0] , $nomeAmbiente4,++$incr4);?>     
+                                                    echo insert_into_monitora( $Sensori[QUATTRO][ZERO] , $nomeAmbiente4,++$incr4);?>     
                                                     </form>
                                                 </td>
                                         </tr>
                                         <tr>
-                                        	<td><?= $Sensori[5][0] ?></td>
-                                        	<td><?= $Sensori[5][1] ?></td>
-                                        	<td><?= $Sensori[5][2] ?></td>
-                                        	<td><?= $Sensori[5][3] ?></td>
+                                        	<td><?= $Sensori[CINQUE][ZERO] ?></td>
+                                        	<td><?= $Sensori[CINQUE][UNO] ?></td>
+                                        	<td><?= $Sensori[CINQUE][DUE] ?></td>
+                                        	<td><?= $Sensori[CINQUE][TRE] ?></td>
                                                 <td>
                                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti5" onchange="this.form.submit();">
@@ -364,15 +372,15 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente5= getPOSTambienti5();
                                                          $incr5=getLastID();
-                                                    echo insert_into_monitora( $Sensori[5][0] , $nomeAmbiente5,++$incr5);?>     
+                                                    echo insert_into_monitora( $Sensori[CINQUE][ZERO] , $nomeAmbiente5,++$incr5);?>     
                                                     </form>
                                                 </td>
                                         </tr>
                                         <tr>
-                                        	<td><?= $Sensori[6][0] ?></td>
-                                        	<td><?= $Sensori[6][1] ?></td>
-                                        	<td><?= $Sensori[6][2] ?></td>
-                                        	<td><?= $Sensori[6][3] ?></td>
+                                        	<td><?= $Sensori[SEI][ZERO] ?></td>
+                                        	<td><?= $Sensori[SEI][UNO] ?></td>
+                                        	<td><?= $Sensori[SEI][DUE] ?></td>
+                                        	<td><?= $Sensori[SEI][TRE] ?></td>
                                                 <td>
                                                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                                     <select name="ambienti6" onchange="this.form.submit();">
@@ -380,7 +388,7 @@ function getPOSTambienti6(){
                                                    </select>
                                                     <?php $nomeAmbiente6= getPOSTambienti6();
                                                          $incr6=getLastID();
-                                                    echo insert_into_monitora( $Sensori[6][0] , $nomeAmbiente6,++$incr6);?>     
+                                                    echo insert_into_monitora( $Sensori[SEI][ZERO] , $nomeAmbiente6,++$incr6);?>     
                                                     </form>
                                                 </td>
                                         </tr>
