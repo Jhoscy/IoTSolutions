@@ -65,9 +65,6 @@ $Sensori= selectSensore();
             }
              $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore) VALUES($a,$IDambiente,$IDsensore)";
              $result=$mysqli->query($sql1);
-             //var_dump($result);
-             
-              
         }
     }
     

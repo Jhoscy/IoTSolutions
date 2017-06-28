@@ -17,44 +17,12 @@ else {
     $email = $_SESSION['email'];
     $active = $_SESSION['active'];
 }
-$sqlS='SELECT * FROM sensore';
-if(isset($mysqli)){
-     $resultS=$mysqli->query($sqlS);
-}
-
-if($resultS->num_rows>0){
-    while($row=$resultS->fetch_assoc()){
-       // echo '<br> id: ' , $row['ID'] , ' - MARCA: ' , $row['MARCA'] ,  ' - TIPO ' , $row['TIPO'] , "UNITA' "  , $row['UNITAMISURA'];
-        $ID=$row['ID'];
-        $marca=$row['MARCA'];
-        $tipo=$row['TIPO'];
-        $misura=$row['UNITAMISURA'];
-}
-    }else {
-        echo '0 results';
-    }
-    function get_options(){
-        require 'db.php';
-          
-             $sqlA='SELECT * FROM ambiente';
-  
-             $resultA=$mysqli->query($sqlA);
-    
-             if($resultA->num_rows>0){
-               while($row=$resultA->fetch_assoc()){
-               echo '<option value="' , $row['NOME'] , '">', $row['NOME'] , '</option>';
-                      }
-               }else {
-                  echo '0 results';
-                   }
-                   
-    }
     
     function getDati(){
         require 'db.php';
         $sql="SELECT a.NOME, s.MARCA, s.TIPO, m.VALORE, s.UNITAMISURA, m.DATA, m.ORA ".
                     "FROM MONITORA m JOIN AMBIENTE a ON m.IDambiente=a.ID JOIN SENSORE s ON m.IDsensore=s.ID ".
-                    "WHERE IDcliente=1";;
+                    "WHERE IDcliente=3";
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
@@ -74,45 +42,6 @@ if($resultS->num_rows>0){
         
     }
     
-    function insert_into_monitora($IDsensore, $nomeAmbiente, $a){
-        require 'db.php';
-        $IDambiente=-1;
-        $sql="SELECT ID FROM ambiente WHERE NOME='$nomeAmbiente'";
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                echo ' ID: ', $row['ID'];
-                $IDambiente=$row['ID'];
-                
-            }
-             $sql1="INSERT INTO monitora VALUES($a,$IDambiente,$IDsensore)";
-             $mysqli->query($sql1);  
-        }
-    }
-    
-    function getLastID(){
-        require 'db.php';
-        
-        $sql='SELECT ID FROM monitora WHERE ID=(SELECT MAX(ID) FROM monitora)';
-        $result=$mysqli->query($sql);
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                $lastID=$row['ID'];
-                echo' IDLAST: ' , $lastID;
-                
-            }
-            return $lastID;
-        }else{
-            $lastID=1;
-            return $lastID;
-        }
-        
-    }
-    function getPOSTambienti (){
-       $ambiente= filter_input(INPUT_POST, 'ambienti');
-       return $ambiente;
-}
-             $mysqli->close();
     
 ?>
 <!doctype html>
