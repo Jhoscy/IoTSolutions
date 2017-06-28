@@ -250,7 +250,7 @@ $Sensori= selectSensore();
                                                     $rand1=rand(0,100);
                                                     $valore1=(string)$rand1;
                                                     $data1='21/05/2017';
-                                                    $ora1="15:41";
+                                                    $ora1='15:41';
                                                     echo insert_into_monitora( $Sensori[DUE][ZERO] , $nomeAmbiente2, ++$incr2, $valore1, $data1, $ora1);?>
                                                          
                                                     </form>
@@ -293,7 +293,7 @@ $Sensori= selectSensore();
                                                              case 0:
                                                                  $valore3='0';
                                                                  break;
-                                                             case 1:
+                                                             default:
                                                                  $valore3='1';
                                                                  break;
                                                          }
@@ -320,7 +320,7 @@ $Sensori= selectSensore();
                                                              case 0:
                                                                  $valore4='movimento';
                                                                  break;
-                                                             case 1:
+                                                             default:
                                                                  $valore4='spento';
                                                                  break;
                                                          }
