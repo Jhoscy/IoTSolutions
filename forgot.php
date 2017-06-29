@@ -8,8 +8,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {   
     //$email = $mysqli->escape_string($_POST['email']);
                    
-	$email = $mysqli->escape_string(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
-                   filter_var($email, FILTER_SANITIZE_EMAIL);
+	$email = $mysqli->escape_string(filter_var($_POST['email'], FILTER_SANIZITE_EMAIL));
 	if($email===false){
 		trigger_error('Invalid email', E_USER_WARNING);
 	}
