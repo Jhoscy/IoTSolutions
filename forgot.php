@@ -39,6 +39,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
         http://localhost/Login-System-PHP/Login-PHP-Kiuwan/reset.php?email='.$email.'&hash='.$hash;
 
+        csrfProtector::init();
         mail($to, $subject, $message_body);
 
         header('location: success.php');

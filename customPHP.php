@@ -387,7 +387,7 @@ function random($min, $max){
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
                 $str='<tr><td>'. $row['NOME'].  ' </td><td>'.  $row['MARCA'].  ' </td><td>'.  $row['TIPO'].  ' </td><td>'.  $row['VALORE'].  ' </td><td>'. $row['UNITAMISURA'].  ' </td><td>'.  $row['DATA'].  ' </td><td>'.  $row['ORA']. ' </td><tr>';
-                echo  $str;
+                echo  htmlspecialchars($str);
                 
             }
             

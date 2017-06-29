@@ -24,7 +24,7 @@ if(isset($_GET['email']) && !empty($_GET['email']) and isset($_GET['hash']) && !
     }
     else {
         $_SESSION['message'] = 'Your account has been activated!';
-        
+        csrfProtector::init();
         // Set the user status to active (active = 1)
        $mysqli->query("UPDATE users SET active='1' WHERE email='$email'"); // or die($mysqli->error);
         if(!$mysqli){
