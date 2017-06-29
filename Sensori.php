@@ -77,13 +77,13 @@ $Sensori= selectSensore();
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="#" class="simple-text">
                     IoT Solutions
                 </a>
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="dashboard.php">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
@@ -101,7 +101,7 @@ $Sensori= selectSensore();
                         <p>Ambienti</p>
                     </a>
                 </li>
-                <li>
+                <li  class="active">
                     <a href="Sensori.php">
                         <i class="pe-7s-news-paper"></i>
                         <p>Sensori</p>
@@ -128,30 +128,6 @@ $Sensori= selectSensore();
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-								<p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
 								<p class="hidden-lg hidden-md">Search</p>
@@ -160,30 +136,21 @@ $Sensori= selectSensore();
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
-                                        Dropdown
+                                        Transfer To/Me
                                     <b class="caret"></b>
 				</p>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Scarica Dati</a></li>
+                                <li><a href="#">Email</a></li>
+                                <li><a href="#">Applicazione</a></li>
                               </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="logout.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -199,6 +166,13 @@ $Sensori= selectSensore();
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+                             <form method="post">
+                              <input type="text" name="sample2" class="form-control" placeholder="Marca" value="">
+                              <input type="text" name="sample5" class="form-control" placeholder="Tipo" value="">
+                              <input type="text" name="sample6" class="form-control" placeholder="Unità di Misura" value="">
+                              <input type="submit" name="sampl3"  value="Crea Sensore"/>
+                              <input type="submit" name="sample4"  value="Remove Sensore"/>
+                                </form>
                             <div class="header">
                                 <h4 class="title">Sensori</h4>
                                 <p class="category">Lista dei sensori disponibili</p>
@@ -360,7 +334,7 @@ $Sensori= selectSensore();
         <footer class="footer">
             <div class="container-fluid">
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear());</script> <a href="http://www.creative-tim.com">IoT Solutions</a>, made with passion
+                    &copy; <script>document.write(new Date().getFullYear());</script> <a href="#">IoT Solutions</a>, made with passion
                 </p>
             </div>
         </footer>

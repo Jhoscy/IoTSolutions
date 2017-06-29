@@ -68,7 +68,7 @@ else {
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="#" class="simple-text">
                     IoT Solutions
                 </a>
             </div>
@@ -159,7 +159,7 @@ else {
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Sintesi Dati Raccolti</h4>
-                                <p class="category">Here is a subtitle for this table</p>
+                                <p class="category">Raccolta di tutti i dati relativi a tutti gli ambienti</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -188,7 +188,7 @@ else {
            <footer class="footer">
             <div class="container-fluid">
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear()</script> <a href="uniba.it">IoT</a>, made with passion
+                    &copy; <script>document.write(new Date().getFullYear()</script> <a href="#">IoT</a>, made with passion
                 </p>
             </div>
         </footer>

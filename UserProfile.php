@@ -63,7 +63,7 @@ else {
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="#" class="simple-text">
                     IoT Solutions
                 </a>
             </div>
@@ -112,30 +112,6 @@ else {
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-								<p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
 								<p class="hidden-lg hidden-md">Search</p>
@@ -144,31 +120,21 @@ else {
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
-										Dropdown
-										<b class="caret"></b>
-									</p>
-
+                                        Transfer To/Me
+                                    <b class="caret"></b>
+				</p>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Scarica Dati</a></li>
+                                <li><a href="#">Email</a></li>
+                                <li><a href="#">Applicazione</a></li>
                               </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="logout.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -193,7 +159,7 @@ else {
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Nome Azienda</label>
-                                                    <input type="text" name="nazienda"class="form-control" placeholder="Azienda" value="<?php /*echo getNomeAzienda($email); */
+                                                    <input type="text" name="nazienda"class="form-control" placeholder="Azienda" value="<?php 
                                                     if(isset($email)){
                                                           echo  htmlspecialchars(getNomeAzienda($email)); 
                                                     } 
@@ -204,7 +170,7 @@ else {
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Telefono</label>
-                                                <input type="text" name="telefono"class="form-control" placeholder="Telefono" value="<?php /* echo getTelefono($email)*/
+                                                <input type="text" name="telefono"class="form-control" placeholder="Telefono" value="<?php 
                                                 if(isset($email)){
                                                     echo  htmlspecialchars(getTelefono($email));
                                                 }
@@ -215,7 +181,7 @@ else {
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="text" name="email"class="form-control" disabled placeholder="Email" value="<?php /*echo $email*/
+                                                <input type="text" name="email"class="form-control" disabled placeholder="Email" value="<?php 
                                                     if (isset($email)){
                                                         echo htmlspecialchars($email);
                                                     }
@@ -229,7 +195,7 @@ else {
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nome</label>
-                                                <input type="text" name="nome" class="form-control" placeholder="Nome" value="<?php /*echo getNome($email)*/
+                                                <input type="text" name="nome" class="form-control" placeholder="Nome" value="<?php 
                                                 if(isset($email)){
                                                     echo htmlspecialchars(getNome($email));
                                                 }
@@ -241,7 +207,7 @@ else {
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Cognome</label>
-                                                <input type="text" name="cognome" class="form-control" placeholder="Cognome" value="<?php /*echo getCognome($email)*/
+                                                <input type="text" name="cognome" class="form-control" placeholder="Cognome" value="<?php 
                                                 if(isset($email)){
                                                     echo htmlspecialchars(getCognome($email));
                                                 }
@@ -256,7 +222,7 @@ else {
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Indirizzo</label>
-                                                <input type="text" name="indirizzo" class="form-control" placeholder="Home Address" value="<?php /*echo getIndirizzzo($email)*/
+                                                <input type="text" name="indirizzo" class="form-control" placeholder="Home Address" value="<?php 
                                                 if(isset($email)){
                                                       echo htmlspecialchars(getIndirizzzo($email));
                                                 }
@@ -271,7 +237,7 @@ else {
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Sede</label>
-                                                <input type="text" name="sede" class="form-control" placeholder="City" value="<?php /*echo getSede($email) */
+                                                <input type="text" name="sede" class="form-control" placeholder="City" value="<?php 
                                                 if(isset($email)){
                                                     echo htmlspecialchars(getSede($email)) ;
                                                 }
@@ -282,7 +248,7 @@ else {
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Codice Fiscale</label>
-                                                <input type="text" name="codiceFiscale" class="form-control" placeholder="CodFisc" value="<?php /*echo getCodFisc($email)*/
+                                                <input type="text" name="codiceFiscale" class="form-control" placeholder="CodFisc" value="<?php 
                                                 if(isset($email)){
                                                     echo htmlspecialchars(getCodFisc($email));
                                                 }
@@ -293,7 +259,7 @@ else {
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Partita IVA</label>
-                                                <input type="text" name="PIVA" class="form-control" placeholder="P.IVA" value="<?php /*echo getPIVA($email)*/
+                                                <input type="text" name="PIVA" class="form-control" placeholder="P.IVA" value="<?php 
                                                 if(isset($email)){
                                                     echo htmlspecialchars(getPIVA($email));
                                                 }
@@ -305,7 +271,7 @@ else {
                                          <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Cap</label>
-                                                <input type="number" name="cap" class="form-control" placeholder="CAP" value="<?php /*echo getCAP($email)*/
+                                                <input type="number" name="cap" class="form-control" placeholder="CAP" value="<?php 
                                                 if(isset($email)){
                                                     echo htmlspecialchars(getCAP($email));
                                                 }
@@ -339,7 +305,7 @@ else {
                                      <a href="#">
                                     <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
 
-                                    <h4 class="title"><?php  /*echo getNome($email) */
+                                    <h4 class="title"><?php 
                                     if(isset($email)){
                                          echo htmlspecialchars(getNome($email));
                                     }
@@ -367,7 +333,7 @@ else {
         <footer class="footer">
             <div class="container-fluid">
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">IoT</a>, made with passion
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="#">IoT</a>, made with passion
                 </p>
             </div>
         </footer>

@@ -76,13 +76,13 @@ else {
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="#" class="simple-text">
                     IoT Solutions
                 </a>
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="dashboard.php">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
@@ -94,7 +94,7 @@ else {
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="Ambienti.php">
                         <i class="pe-7s-note2"></i>
                         <p>Ambienti</p>
@@ -127,30 +127,6 @@ else {
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-								<p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
 								<p class="hidden-lg hidden-md">Search</p>
@@ -159,30 +135,21 @@ else {
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
-                                        Dropdown
+                                        Transfer To/Me
                                     <b class="caret"></b>
 				</p>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Scarica Dati</a></li>
+                                <li><a href="#">Email</a></li>
+                                <li><a href="#">Applicazione</a></li>
                               </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="logout.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -198,6 +165,11 @@ else {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+                            <form method="post">
+                              <input type="text" name="sample" class="form-control" placeholder="Nome Ambiente" value="">
+                              <input type="submit" name="sample"  value="Crea Ambiente"/>
+                              <input type="submit" name="sample1"  value="Remove Ambiente"/>
+                                </form>
                             <div class="header">
                                 <h4 class="title">Casa</h4>
                                 <?php $nomeAmbiente='casa';
@@ -232,7 +204,7 @@ else {
                                                      }?>
                                                     </form>
                                                 </td>
-                                                </tr>
+                                        </tr>
                                         <tr>
                                         	<td><?= $Sensore[UNO][ZERO] ?></td>
                                         	<td><?= $Sensore[UNO][UNO] ?></td>
@@ -776,7 +748,7 @@ else {
         <footer class="footer">
             <div class="container-fluid">
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">IoT Solutions</a>, made with passion
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="#">IoT Solutions</a>, made with passion
                 </p>
             </div>
         </footer>

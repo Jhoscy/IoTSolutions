@@ -246,8 +246,7 @@ function removeSensore1($IDriga, $submit){
            $mysqli->query($SQL);
               echo refresh();
          }
-         //print_r($Sensore);
-         //$Sensore=mostraSensore($nomeAmbiente);
+        
     }
     
 function mostraSensore($nomeAmbiente){
@@ -257,7 +256,6 @@ function mostraSensore($nomeAmbiente){
                 . ' FROM sensore s JOIN monitora m ON s.ID=m.IDsensore'
                 . " WHERE IDambiente=$IDambiente";
       
-                //$slqB="SELECT marca,tipo,valore,data,ora,misura from monitoraggio WHERE IDambiente=$IDambiente";
                  if(isset($mysqli)){
                       $result=$mysqli->query($sqlA);
                       
@@ -285,7 +283,7 @@ function mostraSensore($nomeAmbiente){
                   }
                     
         $mysqli->close();
-         //echo print_r($SensoreDato);
+        
         return $SensoreDato;
 }
 
@@ -315,7 +313,7 @@ function mostraSensore($nomeAmbiente){
                 $IDambiente=$row['ID'];
                 
             }
-            //echo "VALORE: ".$valore, " DATA: ".$data, " ORA: ".$ora;
+           
              $sql1="INSERT INTO monitora (ID, IDambiente, IDsensore, VALORE, DATA, ORA) VALUES($a,$IDambiente,$IDsensore,'$valore','$data','$ora')";
              $mysqli->query($sql1);
         }
@@ -362,7 +360,7 @@ function selectSensore(){
     if($resultS->num_rows>0){
          while($row=$resultS->fetch_assoc()){
            $Sensore[$row['ID']]=array($row['ID'], $row['MARCA'], $row['TIPO'], $row['UNITAMISURA']);
-         //echo " Sensori: ".$row['ID'], " MARCA: ".$row['MARCA'], " VALORE: ".$row['TIPO'], " MISURA: ".$row['UNITAMISURA'];
+        
          }
       }
       return $Sensore;
@@ -389,7 +387,7 @@ function random($min, $max){
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
                 $str='<tr><td>'. $row['NOME'].  ' </td><td>'.  $row['MARCA'].  ' </td><td>'.  $row['TIPO'].  ' </td><td>'.  $row['VALORE'].  ' </td><td>'. $row['UNITAMISURA'].  ' </td><td>'.  $row['DATA'].  ' </td><td>'.  $row['ORA']. ' </td><tr>';
-                echo  htmlspecialchars($str);
+                echo  $str;
                 
             }
             
