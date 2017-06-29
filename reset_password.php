@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 mysql_real_escape_string($new_password),
                 mysql_real_escape_string($hash),
                 mysql_real_escape_string($email));
-        if ( $mysqli->query($sql1) ) {
+        if ( $mysql_query($sql1) ) {
 
         $_SESSION['message'] = 'Your password has been reset successfully!';
         header('location: success.php');    
