@@ -1,17 +1,22 @@
 <?php 
 /* Reset your password form, sends reset.php password link */
 require 'db.php';
+require 'customPHP.php';
 session_start();
 
 // Check if form submitted with method="post"
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) 
 {   
     //$email = $mysqli->escape_string($_POST['email']);
-                   
-	$email = $mysqli->escape_string(filter_var($_POST['email'], FILTER_SANIZITE_EMAIL));
-	if($email===false){
-		trigger_error('Invalid email', E_USER_WARNING);
-	}
+	//$email = $mysqli->escape_string(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
+    if(authenticate($_POST['email'], $_POST['password'], $_POST['hash'], $_POST['active'])){
+        $email=emailSecure($_POST['email']);
+    }else{
+        trigger_error("Email and Password is unchecked", E_USER_WARNING);
+    }
+	//if($email===false){
+		//trigger_error('Invalid email', E_USER_WARNING);
+	//}
     $result = $mysqli->query("SELECT * FROM users WHERE email='$email'");
 
     if ( $result->num_rows == 0 ) // User doesn't exist
@@ -40,7 +45,6 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
         http://localhost/Login-System-PHP/Login-PHP-Kiuwan/reset.php?email='.$email.'&hash='.$hash;
 
-        csrfProtector::init();
         mail($to, $subject, $message_body);
 
         header('location: success.php');

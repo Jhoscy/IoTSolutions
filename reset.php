@@ -3,13 +3,20 @@
    from the forgot.php email message
 */
 require 'db.php';
+require 'customPHP.php';
 session_start();
 
 // Make sure email and hash variables aren't empty
 if( isset($_GET['email']) && !empty($_GET['email']) and isset($_GET['hash']) && !empty($_GET['hash']) )
 {
-    $email = $mysqli->escape_string($_GET['email']); 
-    $hash = $mysqli->escape_string($_GET['hash']); 
+    //$email = $mysqli->escape_string($_GET['email']); 
+    //$hash = $mysqli->escape_string($_GET['hash']); 
+     if(authenticate($_POST['email'], $_POST['password'],$_POST['hash'], $_POST['active'])){
+        $email=emailSecure($_POST['email']);
+        $hash=hashSecure($_POST['hash']);
+    }else{
+        trigger_error("Email, Password and hash is unchecked", E_USER_WARNING);
+    }
 
     // Make sure user email with matching hash exist
     $result = $mysqli->query("SELECT * FROM users WHERE email='$email' AND hash='$hash'");

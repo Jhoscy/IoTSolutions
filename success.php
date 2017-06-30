@@ -14,7 +14,7 @@ session_start();
     <p>
     <?php 
     if( isset($_SESSION['message']) and !empty($_SESSION['message']) ):
-        echo htmlspecialchars($_SESSION['message']);    
+        echo htmlspecialchars($_SESSION['message']);   
     else:
         header( 'location: index.php' );
     endif;

@@ -35,7 +35,7 @@ else {
           // Display message about account verification link only once
           if ( isset($_SESSION['message']) )
           {
-              echo htmlspecialchars($_SESSION['message']);
+              echo htmlspecialchars($_SESSION['message']); 
               
               // Don't annoy the user with more messages upon page refresh
               unset( $_SESSION['message'] );
