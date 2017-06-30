@@ -395,47 +395,14 @@ function random($min, $max){
         
     }
 
-function authenticate($email, $password, $hash, $active){
+function authenticate($email, $password){
     $file=explode(PHP_EOL, file_get_contents("accounts.txt"));
     foreach($file as $line){
         list($email, $password)=explode(",",$line);
-        if($_POST['email']==$email && $_POST['password']==$password && $_POST['hash']==$hash && $_POST['active']==$active){
+        if($_POST['email']==$email && $_POST['password']==$password){
             return true;
         }
     }
     return false;
-}     
-
-function emailSecure($email){
-    $file=explode(PHP_EOL, file_get_contents("accounts.txt"));
-    foreach($file as $line){
-        list($email, $password)=explode(",",$line);
-        if($_POST['email']==$email && $_POST['password']==$password && $_POST['hash']==$hash && $_POST['active']==$active){
-            return $email;
-        }
-    }
-    return NULL;
-}
-
-function hashSecure(){
-    $file=explode(PHP_EOL, file_get_contents("accounts.txt"));
-    foreach($file as $line){
-        list($email, $password)=explode(",",$line);
-        if($_POST['email']==$email && $_POST['password']==$password && $_POST['hash']==$hash && $_POST['active']==$active){
-            return $hash;
-        }
-    }
-    return NULL;
-}
-
-function activeSecure(){
-    $file=explode(PHP_EOL, file_get_contents("accounts.txt"));
-    foreach($file as $line){
-        list($email, $password)=explode(",",$line);
-        if($_POST['email']==$email && $_POST['password']==$password && $_POST['hash']==$hash && $_POST['active']==$active){
-            return $active;
-        }
-    }
-    return NULL;
-}
+}                                                              
 

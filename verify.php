@@ -3,23 +3,15 @@
    is included in the register.php email message 
 */
 require 'db.php';
-require 'customPHP.php';
 session_start();
 
 
 // Make sure email and hash variables aren't empty
 if(isset($_GET['email']) && !empty($_GET['email']) and isset($_GET['hash']) && !empty($_GET['hash']))
 {
-    //$email = $mysqli->escape_string($_GET['email']); 
+    $email = $mysqli->escape_string($_GET['email']); 
 	//$email = $mysqli->escape_string(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
-    //$hash = $mysqli->escape_string($_GET['hash']); 
-     if(authenticate($_POST['email'], $_POST['password'],$_POST['hash'], $_POST['active'])){
-        $email=emailSecure($_POST['email']);
-        $hash=hashSecure($_POST['hash']);
-        $active=activeSecure($_POST['active']);
-    }else{
-        trigger_error("Email and Password is unchecked", E_USER_WARNING);
-    }
+    $hash = $mysqli->escape_string($_GET['hash']); 
     
     // Select user with matching email and hash, who hasn't verified their account yet (active = 0)
     $result = $mysqli->query("SELECT * FROM users WHERE email='$email' AND hash='$hash' AND active='0'");

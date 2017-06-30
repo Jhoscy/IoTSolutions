@@ -1,17 +1,10 @@
 <?php
 /* User login process, checks if user exists and password is correct */
-require 'customPHP.php';
-require 'db.php';
-session_start();
-// Escape email to protect against SQL injections
-//$email = $mysqli->escape_string($_POST['email']);
 
- if(authenticate($_POST['email'], $_POST['password'],$_POST['hash'], $_POST['active'])){
-        $email=emailSecure($_POST['email']);
-    }else{
-        trigger_error("Email and Password is unchecked", E_USER_WARNING);
-    }
+// Escape email to protect against SQL injections
+$email = $mysqli->escape_string($_POST['email']);
 $result = $mysqli->query("SELECT * FROM users WHERE email='$email'");
+
 if ( $result->num_rows == 0 ){ // User doesn't exist
     $_SESSION['message'] = 'User with that email doesn t exist!';
     header('location: error.php');
