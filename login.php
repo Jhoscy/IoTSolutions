@@ -1,9 +1,10 @@
 <?php
 /* User login process, checks if user exists and password is correct */
-$IDsession=$_SESSION['id']=5;
+
 // Escape email to protect against SQL injections
 $email = $mysqli->escape_string($_POST['email']);
-$result = $mysqli->query("SELECT * FROM users WHERE email='$email' and id=$IDsession");
+$result = $mysqli->query("SELECT * FROM users WHERE email='$email'");
+
 
 if ( $result->num_rows == 0 ){ // User doesn't exist
     $_SESSION['message'] = 'User with that email doesn t exist!';
