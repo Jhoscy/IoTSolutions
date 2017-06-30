@@ -386,8 +386,8 @@ function random($min, $max){
         $result=$mysqli->query($sql);
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
-                $str='<tr><td>'. $row['NOME'].  ' </td><td>'.  $row['MARCA'].  ' </td><td>'.  $row['TIPO'].  ' </td><td>'.  $row['VALORE'].  ' </td><td>'. $row['UNITAMISURA'].  ' </td><td>'.  $row['DATA'].  ' </td><td>'.  $row['ORA']. ' </td><tr>';
-                echo  $str;
+                $str='<tr><td>'. htmlspecialchars($row['NOME']).  ' </td><td>'. htmlspecialchars($row['MARCA']).  ' </td><td>'. htmlspecialchars($row['TIPO']).  ' </td><td>'. htmlspecialchars($row['VALORE']).  ' </td><td>'. htmlspecialchars($row['UNITAMISURA']).  ' </td><td>'. htmlspecialchars($row['DATA']).  ' </td><td>'. htmlspecialchars($row['ORA']). ' </td><tr>';
+                echo $str;
                 
             }
             
